@@ -464,20 +464,20 @@ nav {
 }
 
 .menu-item:last-of-type { border-bottom: none; }
-.menu-item:hover { background: rgba(255,255,255,0.02); }
-.menu-item.signature { border-left: 2px solid var(--green); }
+.menu-item:hover { background: rgba(122,182,72,0.03); outline: 1.5px solid rgba(122,182,72,0.35); }
+.menu-item:hover .menu-item-decision { color: rgba(122,182,72,0.7); }
+.menu-item:hover .menu-cta { background: rgba(122,182,72,0.7); color: var(--bg); }
+.menu-item.signature { }
+.menu-item.signature:hover { outline: 1.5px solid rgba(122,182,72,0.6); background: rgba(122,182,72,0.05); }
+.menu-item.signature:hover .menu-item-decision { color: rgba(122,182,72,0.85); }
 
 .menu-item-img {
   width: 120px;
   min-height: 110px;
-  object-fit: cover;
   display: block;
   border-right: 0.5px solid var(--border);
-  filter: brightness(0.7) saturate(0.5);
-  transition: filter 0.3s;
+  flex-shrink: 0;
 }
-
-.menu-item:hover .menu-item-img { filter: brightness(0.85) saturate(0.65); }
 
 .menu-item-num {
   font-family: 'Playfair Display', serif;
@@ -537,30 +537,50 @@ nav {
 }
 
 .menu-item-right {
-  text-align: right;
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  justify-content: center;
-  gap: 0.5rem;
-  padding: 1.5rem 1.5rem 1.5rem 1rem;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 1.5rem 1.5rem 1.5rem 0.5rem;
   border-left: 0.5px solid var(--border);
-  min-width: 110px;
-}
-
-.menu-price-label {
-  font-size: 0.58rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--text-faint);
-  font-family: 'DM Sans', sans-serif;
+  min-width: 90px;
 }
 
 .menu-price-val {
   font-family: 'Playfair Display', serif;
-  font-size: 0.88rem;
+  font-size: 1rem;
   color: var(--gold);
   font-style: italic;
+  font-weight: 400;
+}
+
+.menu-tier-badge {
+  font-size: 0.58rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 100px;
+  font-weight: 500;
+  font-family: 'DM Sans', sans-serif;
+  width: fit-content;
+  align-self: flex-end;
+}
+
+.menu-tier-badge.entry {
+  background: rgba(201,184,130,0.1);
+  border: 0.5px solid rgba(201,184,130,0.25);
+  color: var(--gold);
+}
+
+.menu-tier-badge.embedded {
+  background: var(--green-dim);
+  border: 0.5px solid var(--green-border);
+  color: var(--green);
+}
+
+.menu-tier-badge.fractional {
+  background: rgba(74,159,212,0.1);
+  border: 0.5px solid rgba(74,159,212,0.25);
+  color: var(--blue);
 }
 
 .menu-cta {
@@ -579,28 +599,21 @@ nav {
 }
 
 .menu-cta:hover { background: var(--text); }
-.menu-item.signature .menu-cta { background: var(--green); }
-.menu-item.signature .menu-cta:hover { background: #8fcf55; }
+.menu-item.signature:hover .menu-cta { background: var(--green); color: var(--bg); }
 
 .menu-divider {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 1rem;
-  padding: 1.25rem 2rem;
+  padding: 1rem 1.5rem;
   border-top: 0.5px solid var(--border);
   color: var(--text-faint);
-  font-size: 0.62rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
+  font-size: 0.65rem;
+  letter-spacing: 0.06em;
   font-family: 'DM Sans', sans-serif;
   background: var(--bg-2);
-}
-
-.menu-divider::before, .menu-divider::after {
-  content: '';
-  flex: 1;
-  height: 0.5px;
-  background: var(--border);
+  font-style: italic;
 }
 
 @media (max-width: 700px) {
@@ -789,6 +802,24 @@ nav {
   font-style: italic;
   font-family: 'Playfair Display', serif;
   margin-bottom: 0.25rem;
+}
+
+.tier-price {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: var(--text);
+  line-height: 1;
+  margin: 0.25rem 0;
+}
+
+.tier-price span {
+  font-size: 0.7rem;
+  color: var(--text-faint);
+  font-family: 'DM Sans', sans-serif;
+  font-style: normal;
+  letter-spacing: 0.06em;
+  margin-left: 2px;
 }
 
 .tier-desc {
@@ -1177,156 +1208,210 @@ footer {
     </div>
 
     <div class="menu-item">
-      <img class="menu-item-img" src="https://images.unsplash.com/photo-1531498860502-7c67cf02f657?w=240&q=60&fit=crop" alt="">
+      <svg class="menu-item-img" viewBox="0 0 120 110" xmlns="http://www.w3.org/2000/svg">
+        <rect width="120" height="110" fill="#141414"/>
+        <rect x="20" y="25" width="80" height="55" rx="4" fill="none" stroke="rgba(201,184,130,0.3)" stroke-width="1"/>
+        <circle cx="45" cy="47" r="8" fill="none" stroke="rgba(201,184,130,0.4)" stroke-width="1"/>
+        <line x1="20" y1="62" x2="100" y2="62" stroke="rgba(201,184,130,0.15)" stroke-width="0.5"/>
+        <rect x="30" y="68" width="25" height="4" rx="2" fill="rgba(201,184,130,0.15)"/>
+        <rect x="62" y="68" width="15" height="4" rx="2" fill="rgba(122,182,72,0.3)"/>
+        <line x1="60" y1="25" x2="60" y2="15" stroke="rgba(201,184,130,0.2)" stroke-width="0.5"/>
+        <circle cx="60" cy="12" r="3" fill="none" stroke="rgba(201,184,130,0.3)" stroke-width="1"/>
+      </svg>
       <span class="menu-item-num">i.</span>
       <div class="menu-item-body">
-        <p class="menu-item-name">First Impressions Audit</p>
+        <p class="menu-item-name">First Impressions Audit <span class="menu-tier-badge entry">Partner Light</span></p>
         <p class="menu-item-decision">"Do people immediately understand what this is?"</p>
         <p class="menu-item-desc">Rapid perception testing with real users to assess clarity, comprehension, and first-moment trust. Know within days whether your product makes sense on sight.</p>
       </div>
       <div class="menu-item-right">
-        <span class="menu-price-label">Pricing</span>
-        <span class="menu-price-val">Mkt. rate</span>
         <a href="#contact" class="menu-cta">Inquire</a>
       </div>
     </div>
 
     <div class="menu-item signature">
-      <img class="menu-item-img" src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=240&q=60&fit=crop" alt="">
+      <svg class="menu-item-img" viewBox="0 0 120 110" xmlns="http://www.w3.org/2000/svg">
+        <rect width="120" height="110" fill="#141414"/>
+        <line x1="20" y1="85" x2="100" y2="85" stroke="rgba(122,182,72,0.2)" stroke-width="0.5"/>
+        <polyline points="20,75 35,60 50,68 65,40 80,50 100,25" fill="none" stroke="rgba(122,182,72,0.5)" stroke-width="1.5" stroke-linejoin="round"/>
+        <circle cx="65" cy="40" r="3" fill="rgba(122,182,72,0.6)"/>
+        <line x1="65" y1="40" x2="65" y2="85" stroke="rgba(122,182,72,0.2)" stroke-width="0.5" stroke-dasharray="2,2"/>
+        <rect x="50" y="22" width="38" height="14" rx="2" fill="rgba(122,182,72,0.08)" stroke="rgba(122,182,72,0.3)" stroke-width="0.5"/>
+        <rect x="54" y="26" width="20" height="2" rx="1" fill="rgba(122,182,72,0.4)"/>
+        <rect x="54" y="31" width="12" height="2" rx="1" fill="rgba(122,182,72,0.25)"/>
+      </svg>
       <span class="menu-item-num">ii.</span>
       <div class="menu-item-body">
-        <p class="menu-item-name">Validation Sprint <span class="menu-item-tag">Signature</span></p>
+        <p class="menu-item-name">Validation Sprint <span class="menu-item-tag">Signature</span> <span class="menu-tier-badge embedded">Embedded</span></p>
         <p class="menu-item-decision">"Is this worth building?"</p>
-        <p class="menu-item-desc">High-impact research before you invest. Get a clear build/don't-build answer in under two weeks. The most important thing you can do before a product bet.</p>
+        <p class="menu-item-desc">High-impact research before you invest. Get a clear build/don't-build answer before committing resources. The most important thing you can do before a product bet.</p>
       </div>
       <div class="menu-item-right">
-        <span class="menu-price-label">Pricing</span>
-        <span class="menu-price-val">Mkt. rate</span>
         <a href="#contact" class="menu-cta">Inquire</a>
       </div>
     </div>
 
     <div class="menu-item">
-      <img class="menu-item-img" src="https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=240&q=60&fit=crop" alt="">
+      <svg class="menu-item-img" viewBox="0 0 120 110" xmlns="http://www.w3.org/2000/svg">
+        <rect width="120" height="110" fill="#141414"/>
+        <rect x="35" y="30" width="50" height="50" rx="6" fill="none" stroke="rgba(201,184,130,0.25)" stroke-width="1"/>
+        <circle cx="60" cy="52" r="10" fill="none" stroke="rgba(201,184,130,0.4)" stroke-width="1"/>
+        <circle cx="60" cy="52" r="4" fill="rgba(201,184,130,0.2)"/>
+        <line x1="60" y1="30" x2="60" y2="42" stroke="rgba(201,184,130,0.3)" stroke-width="0.5"/>
+        <line x1="60" y1="62" x2="60" y2="80" stroke="rgba(201,184,130,0.3)" stroke-width="0.5"/>
+        <line x1="35" y1="55" x2="50" y2="55" stroke="rgba(201,184,130,0.3)" stroke-width="0.5"/>
+        <line x1="70" y1="55" x2="85" y2="55" stroke="rgba(201,184,130,0.3)" stroke-width="0.5"/>
+        <path d="M48,40 L40,32" stroke="rgba(201,184,130,0.2)" stroke-width="0.5"/>
+        <path d="M72,40 L80,32" stroke="rgba(201,184,130,0.2)" stroke-width="0.5"/>
+        <circle cx="60" cy="52" r="18" fill="none" stroke="rgba(201,184,130,0.08)" stroke-width="1" stroke-dasharray="3,3"/>
+      </svg>
       <span class="menu-item-num">iii.</span>
       <div class="menu-item-body">
-        <p class="menu-item-name">AI Trust & UX Audit</p>
+        <p class="menu-item-name">AI Trust & UX Audit <span class="menu-tier-badge embedded">Embedded</span></p>
         <p class="menu-item-decision">"Will users trust this AI feature?"</p>
         <p class="menu-item-desc">Evaluate how users perceive, interact with, and form trust around AI-driven product experiences. Critical before any AI feature ships.</p>
       </div>
       <div class="menu-item-right">
-        <span class="menu-price-label">Pricing</span>
-        <span class="menu-price-val">Mkt. rate</span>
         <a href="#contact" class="menu-cta">Inquire</a>
       </div>
     </div>
 
     <div class="menu-item">
-      <img class="menu-item-img" src="https://images.unsplash.com/photo-1512758017271-d7b84c2113f1?w=240&q=60&fit=crop" alt="">
+      <svg class="menu-item-img" viewBox="0 0 120 110" xmlns="http://www.w3.org/2000/svg">
+        <rect width="120" height="110" fill="#141414"/>
+        <rect x="15" y="30" width="90" height="60" rx="3" fill="none" stroke="rgba(201,184,130,0.2)" stroke-width="1"/>
+        <rect x="15" y="30" width="90" height="14" rx="3" fill="rgba(201,184,130,0.06)"/>
+        <circle cx="26" cy="37" r="3" fill="rgba(201,184,130,0.2)"/>
+        <circle cx="36" cy="37" r="3" fill="rgba(201,184,130,0.12)"/>
+        <circle cx="46" cy="37" r="3" fill="rgba(201,184,130,0.08)"/>
+        <rect x="25" y="54" width="50" height="6" rx="2" fill="rgba(201,184,130,0.12)"/>
+        <rect x="25" y="65" width="35" height="6" rx="2" fill="rgba(201,184,130,0.08)"/>
+        <rect x="25" y="76" width="42" height="6" rx="2" fill="rgba(201,184,130,0.08)"/>
+        <circle cx="88" cy="72" r="10" fill="none" stroke="rgba(201,184,130,0.5)" stroke-width="1.5"/>
+        <line x1="88" y1="68" x2="88" y2="73" stroke="rgba(201,184,130,0.6)" stroke-width="1.5" stroke-linecap="round"/>
+        <circle cx="88" cy="76" r="1" fill="rgba(201,184,130,0.6)"/>
+      </svg>
       <span class="menu-item-num">iv.</span>
       <div class="menu-item-body">
-        <p class="menu-item-name">Friction Finder</p>
+        <p class="menu-item-name">Friction Finder <span class="menu-tier-badge entry">Partner Light</span></p>
         <p class="menu-item-decision">"Where are users getting stuck?"</p>
         <p class="menu-item-desc">Targeted usability audit that surfaces the exact friction points costing you engagement and conversion. Prioritized by impact, not volume.</p>
       </div>
       <div class="menu-item-right">
-        <span class="menu-price-label">Pricing</span>
-        <span class="menu-price-val">Mkt. rate</span>
         <a href="#contact" class="menu-cta">Inquire</a>
       </div>
     </div>
 
     <div class="menu-item">
-      <img class="menu-item-img" src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=240&q=60&fit=crop" alt="">
+      <svg class="menu-item-img" viewBox="0 0 120 110" xmlns="http://www.w3.org/2000/svg">
+        <rect width="120" height="110" fill="#141414"/>
+        <circle cx="60" cy="55" r="8" fill="rgba(201,184,130,0.15)" stroke="rgba(201,184,130,0.4)" stroke-width="1"/>
+        <circle cx="30" cy="35" r="6" fill="rgba(201,184,130,0.08)" stroke="rgba(201,184,130,0.25)" stroke-width="1"/>
+        <circle cx="90" cy="35" r="6" fill="rgba(201,184,130,0.08)" stroke="rgba(201,184,130,0.25)" stroke-width="1"/>
+        <circle cx="25" cy="75" r="6" fill="rgba(201,184,130,0.08)" stroke="rgba(201,184,130,0.25)" stroke-width="1"/>
+        <circle cx="95" cy="75" r="6" fill="rgba(201,184,130,0.08)" stroke="rgba(201,184,130,0.25)" stroke-width="1"/>
+        <circle cx="60" cy="22" r="5" fill="rgba(122,182,72,0.1)" stroke="rgba(122,182,72,0.35)" stroke-width="1"/>
+        <line x1="60" y1="47" x2="36" y2="41" stroke="rgba(201,184,130,0.2)" stroke-width="0.75"/>
+        <line x1="60" y1="47" x2="84" y2="41" stroke="rgba(201,184,130,0.2)" stroke-width="0.75"/>
+        <line x1="60" y1="63" x2="31" y2="69" stroke="rgba(201,184,130,0.2)" stroke-width="0.75"/>
+        <line x1="60" y1="63" x2="89" y2="69" stroke="rgba(201,184,130,0.2)" stroke-width="0.75"/>
+        <line x1="60" y1="47" x2="60" y2="27" stroke="rgba(122,182,72,0.25)" stroke-width="0.75"/>
+      </svg>
       <span class="menu-item-num">v.</span>
       <div class="menu-item-body">
-        <p class="menu-item-name">Mental Model Mapping</p>
+        <p class="menu-item-name">Mental Model Mapping <span class="menu-tier-badge fractional">Fractional</span></p>
         <p class="menu-item-decision">"How do users actually think about this?"</p>
         <p class="menu-item-desc">Deep qualitative work to align your product's logic with the way your users naturally reason. The foundation for products that feel obvious.</p>
       </div>
       <div class="menu-item-right">
-        <span class="menu-price-label">Pricing</span>
-        <span class="menu-price-val">Mkt. rate</span>
         <a href="#contact" class="menu-cta">Inquire</a>
       </div>
     </div>
 
     <div class="menu-item">
-      <img class="menu-item-img" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=240&q=60&fit=crop" alt="">
+      <svg class="menu-item-img" viewBox="0 0 120 110" xmlns="http://www.w3.org/2000/svg">
+        <rect width="120" height="110" fill="#141414"/>
+        <path d="M60,20 L75,55 L60,48 L45,55 Z" fill="rgba(201,184,130,0.12)" stroke="rgba(201,184,130,0.35)" stroke-width="1" stroke-linejoin="round"/>
+        <line x1="60" y1="55" x2="60" y2="85" stroke="rgba(201,184,130,0.2)" stroke-width="1"/>
+        <ellipse cx="60" cy="85" rx="18" ry="4" fill="none" stroke="rgba(201,184,130,0.15)" stroke-width="0.75"/>
+        <circle cx="35" cy="65" r="3" fill="rgba(122,182,72,0.25)" stroke="rgba(122,182,72,0.4)" stroke-width="0.75"/>
+        <circle cx="85" cy="65" r="3" fill="rgba(122,182,72,0.25)" stroke="rgba(122,182,72,0.4)" stroke-width="0.75"/>
+        <path d="M38,65 Q50,50 60,48" stroke="rgba(122,182,72,0.2)" stroke-width="0.75" fill="none" stroke-dasharray="2,2"/>
+        <path d="M82,65 Q70,50 60,48" stroke="rgba(122,182,72,0.2)" stroke-width="0.75" fill="none" stroke-dasharray="2,2"/>
+        <circle cx="60" cy="35" r="2" fill="rgba(201,184,130,0.5)"/>
+      </svg>
       <span class="menu-item-num">vi.</span>
       <div class="menu-item-body">
-        <p class="menu-item-name">Pre-Launch Confidence Check</p>
+        <p class="menu-item-name">Pre-Launch Confidence Check <span class="menu-tier-badge entry">Partner Light</span></p>
         <p class="menu-item-decision">"Are we ready to launch?"</p>
         <p class="menu-item-desc">A focused pre-launch review that flags critical risks before they become expensive post-launch problems. Ship with evidence, not hope.</p>
       </div>
       <div class="menu-item-right">
-        <span class="menu-price-label">Pricing</span>
-        <span class="menu-price-val">Mkt. rate</span>
         <a href="#contact" class="menu-cta">Inquire</a>
       </div>
     </div>
 
-    <div class="menu-divider">Not sure what you need? <a href="#contact" style="color:var(--green);text-decoration:none;margin-left:0.5rem;">Let's talk →</a></div>
+    <div class="menu-divider">
+      <span>* Timelines are estimates. Actual scope aligned during initial call.</span>
+      <a href="#contact" style="color:var(--green);text-decoration:none;white-space:nowrap;">Let's talk →</a>
+    </div>
 
   </div>
 </section>
 
-<!-- ADVISORY -->
-<div class="advisory-wrap" id="advisory">
-  <div class="advisory">
-    <div>
-      <span class="advisory-tag">Ongoing partnership</span>
-      <h2>Research Partner —<br><em>Caliber Advisory</em></h2>
-      <p class="advisory-desc">For teams that need more than a one-off sprint. Caliber Advisory is an embedded research partnership — strategic support built into your product cadence, not bolted on after the fact.</p>
-      <a href="#contact" class="btn-primary">Talk about advisory</a>
-    </div>
-    <div class="advisory-list">
-      <div class="advisory-item"><span class="adv-dot"></span>Ongoing access to senior UX research — no sourcing, no ramp-up time</div>
-      <div class="advisory-item"><span class="adv-dot"></span>Monthly research cadence aligned to your product roadmap</div>
-      <div class="advisory-item"><span class="adv-dot"></span>Strategic input on what to research — not just execution</div>
-      <div class="advisory-item"><span class="adv-dot"></span>Direct access to insights as they emerge, not in quarterly reports</div>
-      <div class="advisory-item"><span class="adv-dot"></span>Flexible scope — ramp up or down based on your needs</div>
-      <div class="advisory-item"><span class="adv-dot"></span>Treated as a team member — present in standups, reviews, and planning</div>
+<!-- CALIBER ADVISORY -->
+<section class="advisory-wrap" id="advisory">
+  <div style="max-width: 1100px; margin: 0 auto; padding: 7rem 2.5rem 2rem;">
+    <p class="eyebrow">Caliber Advisory</p>
+    <h2 class="section-title">For teams that need more<br>than a <em>one-off sprint.</em></h2>
+    <p style="font-size:0.9rem; color:var(--text-muted); max-width:560px; line-height:1.8; margin-bottom:1rem;">An embedded research partner who shows up week after week — inside your cadence, aligned to your roadmap, thinking strategically about what to learn next. Not a vendor. Part of the team.</p>
+  </div>
+
+  <div style="max-width: 1100px; margin: 0 auto; padding: 0 2.5rem 1.5rem; display:flex; gap:2rem; flex-wrap:wrap;">
+    <div class="advisory-item" style="border:none; padding:0; flex:1; min-width:200px;"><span class="adv-dot"></span>No sourcing, no ramp-up — senior access from day one</div>
+    <div class="advisory-item" style="border:none; padding:0; flex:1; min-width:200px;"><span class="adv-dot"></span>Strategic input on what to research, not just how</div>
+    <div class="advisory-item" style="border:none; padding:0; flex:1; min-width:200px;"><span class="adv-dot"></span>Present in standups, reviews, and planning — not just reports</div>
+  </div>
+
+  <div style="border-top: 0.5px solid var(--border); padding: 2.5rem 2.5rem 1.5rem;">
+    <div style="max-width: 1100px; margin: 0 auto;">
+      <p class="eyebrow">Choose your model</p>
     </div>
   </div>
-</div>
 
-<!-- SUPPORT TIERS -->
-<div style="border-top: 0.5px solid var(--border); padding: 4rem 2.5rem 1.5rem;">
-  <div style="max-width: 1100px; margin: 0 auto;">
-    <p class="eyebrow">Support models</p>
-    <h2 class="section-title" style="margin-bottom: 0;">How we <em>work together</em></h2>
+  <div class="tiers">
+    <div class="tiers-inner">
+
+      <div class="tier">
+        <span class="tier-badge">Partner Light</span>
+        <p class="tier-name">Research Partner<br>Light</p>
+        <p class="tier-for">For early-stage startups</p>
+        <p class="tier-price">$3K – $5K<span>/mo</span></p>
+        <p class="tier-desc">One study per month, async feedback, and Slack access. The right level of support when you need occasional guidance without full commitment.</p>
+        <a href="#contact" class="tier-cta">Inquire →</a>
+      </div>
+
+      <div class="tier highlight">
+        <span class="tier-badge">Embedded</span>
+        <p class="tier-name">Embedded<br>Partner</p>
+        <p class="tier-for">For scaling startups</p>
+        <p class="tier-price">$6K – $9K<span>/mo</span></p>
+        <p class="tier-desc">Two to three studies per month, a weekly sync, and ongoing strategic input. Built for teams with active product development who need research woven in.</p>
+        <a href="#contact" class="tier-cta">Inquire →</a>
+      </div>
+
+      <div class="tier">
+        <span class="tier-badge">Fractional</span>
+        <p class="tier-name">Fractional Head<br>of Research</p>
+        <p class="tier-for">For VC-backed startups</p>
+        <p class="tier-price">$10K – $15K+<span>/mo</span></p>
+        <p class="tier-desc">Full ownership of research strategy, roadmap, and stakeholder alignment. Senior-level thinking embedded in your team — without the full-time hire.</p>
+        <a href="#contact" class="tier-cta">Inquire →</a>
+      </div>
+
+    </div>
   </div>
-</div>
-<div class="tiers">
-  <div class="tiers-inner">
-
-    <div class="tier">
-      <span class="tier-badge">Entry</span>
-      <p class="tier-name">Research Partner<br>Light</p>
-      <p class="tier-for">For early-stage startups</p>
-      <p class="tier-desc">One study per month, async feedback, and Slack access. The right level of support when you need occasional guidance without full commitment.</p>
-      <a href="#contact" class="tier-cta">Inquire →</a>
-    </div>
-
-    <div class="tier highlight">
-      <span class="tier-badge">Most popular</span>
-      <p class="tier-name">Embedded<br>Partner</p>
-      <p class="tier-for">For scaling startups</p>
-      <p class="tier-desc">Two to three studies per month, a weekly sync, and ongoing strategic input. Built for teams with active product development who need research woven in.</p>
-      <a href="#contact" class="tier-cta">Inquire →</a>
-    </div>
-
-    <div class="tier">
-      <span class="tier-badge">Senior</span>
-      <p class="tier-name">Fractional Head<br>of Research</p>
-      <p class="tier-for">For VC-backed startups</p>
-      <p class="tier-desc">Full ownership of research strategy, roadmap, and stakeholder alignment. Senior-level thinking embedded in your team — without the full-time hire.</p>
-      <a href="#contact" class="tier-cta">Inquire →</a>
-    </div>
-
-  </div>
-</div>
+</section>
 
 <!-- WHY CALIBER -->
 <section class="why-section" id="why">
