@@ -729,9 +729,9 @@ nav {
 
 /* ── SUPPORT TIERS ── */
 .tiers {
-  border-top: 0.5px solid var(--border);
   border-bottom: 0.5px solid var(--border);
   background: var(--bg);
+  padding: 0 2.5rem 4rem;
 }
 
 .tiers-inner {
@@ -741,25 +741,22 @@ nav {
   grid-template-columns: repeat(3,1fr);
   gap: 0;
   background: var(--border);
-  border-left: 0.5px solid var(--border);
-  border-right: 0.5px solid var(--border);
+  border: 0.5px solid var(--border);
 }
 
 .tier {
-  padding: 2.5rem 2rem;
-  background: var(--bg);
+  padding: 2rem 1.75rem;
+  background: var(--bg-card);
   border-right: 0.5px solid var(--border);
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.6rem;
   transition: background 0.2s;
-  position: relative;
 }
 
 .tier:last-child { border-right: none; }
-.tier:hover { background: var(--bg-card); }
-
-.tier.highlight { background: var(--bg-2); }
+.tier:hover { background: var(--bg-card-hover); }
+.tier.highlight { background: var(--bg-2); border-top: 1.5px solid var(--green); }
 .tier.highlight:hover { background: #161616; }
 
 .tier-badge {
@@ -775,26 +772,27 @@ nav {
   border: 0.5px solid var(--green-border);
   color: var(--green);
   font-family: 'DM Sans', sans-serif;
+  margin-bottom: 0.4rem;
 }
 
 .tier-name {
   font-family: 'Playfair Display', serif;
-  font-size: 1.15rem;
+  font-size: 1.2rem;
   font-weight: 500;
   color: var(--text);
-  line-height: 1.2;
+  line-height: 1.25;
 }
 
 .tier-for {
-  font-size: 0.72rem;
-  letter-spacing: 0.06em;
+  font-size: 0.78rem;
   color: var(--gold);
   font-style: italic;
   font-family: 'Playfair Display', serif;
+  margin-bottom: 0.25rem;
 }
 
 .tier-desc {
-  font-size: 0.8rem;
+  font-size: 0.81rem;
   color: var(--text-muted);
   line-height: 1.65;
   font-weight: 400;
@@ -813,12 +811,13 @@ nav {
   gap: 5px;
   transition: color 0.2s, gap 0.2s;
   font-family: 'DM Sans', sans-serif;
-  margin-top: 0.25rem;
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 0.5px solid var(--border);
 }
 
 .tier:hover .tier-cta { color: var(--text-muted); gap: 9px; }
-.tier.highlight .tier-cta { color: var(--green); opacity: 0.8; }
-.tier.highlight:hover .tier-cta { opacity: 1; }
+.tier.highlight .tier-cta { color: var(--green); }
 
 @media (max-width: 900px) { .tiers-inner { grid-template-columns: 1fr; } }
 
@@ -1168,8 +1167,12 @@ footer {
 </section>
 
 <!-- SUPPORT TIERS -->
-<section class="section">
-<p class="eyebrow">Support Tiers</p>
+<div style="border-top: 0.5px solid var(--border); padding: 4rem 2.5rem 1.5rem;">
+  <div style="max-width: 1100px; margin: 0 auto;">
+    <p class="eyebrow">Support models</p>
+    <h2 class="section-title" style="margin-bottom: 0;">How we <em>work together</em></h2>
+  </div>
+</div>
 <div class="tiers">
   <div class="tiers-inner">
 
