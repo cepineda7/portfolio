@@ -1,9 +1,996 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>My Portfolio</title>
-  </head>
-  <body>
-    <h1>Coming soon!</h1>
-  </body>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Caliber Studios — UX Research & Product Strategy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --blue-deep: #042C53;
+    --blue-mid: #0C447C;
+    --blue-light: #185FA5;
+    --blue-tint: #E6F1FB;
+    --blue-pale: #f0f6fd;
+    --green-deep: #27500A;
+    --green-mid: #3B6D11;
+    --green-accent: #639922;
+    --green-tint: #EAF3DE;
+    --neutral: #faf9f7;
+    --neutral-dark: #f2f0ec;
+    --border: #d3d1c7;
+    --text: #1a1a18;
+    --text-muted: #5F5E5A;
+    --text-faint: #888780;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Jost', sans-serif;
+    background: var(--neutral);
+    color: var(--text);
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--neutral);
+    border-bottom: 0.5px solid var(--border);
+    padding: 0 2.5rem;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    font-weight: 500;
+    color: var(--blue-deep);
+    letter-spacing: 0.04em;
+    text-decoration: none;
+  }
+
+  .nav-logo span {
+    font-weight: 400;
+    font-style: italic;
+    color: var(--green-accent);
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-weight: 400;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--blue-mid); }
+
+  .nav-cta {
+    background: var(--blue-mid);
+    color: var(--blue-tint) !important;
+    padding: 0.5rem 1.25rem;
+    border-radius: 2px;
+  }
+
+  .nav-cta:hover { background: var(--blue-deep); color: white !important; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: calc(100vh - 64px);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2.5rem;
+    align-items: center;
+    gap: 4rem;
+  }
+
+  .hero-left { padding: 5rem 0; }
+
+  .hero-eyebrow {
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--green-mid);
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 1px;
+    background: var(--green-accent);
+  }
+
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.8rem, 5vw, 4.5rem);
+    font-weight: 400;
+    line-height: 1.05;
+    color: var(--blue-deep);
+    margin-bottom: 1.5rem;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--blue-light);
+  }
+
+  .hero-sub {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.8;
+    max-width: 420px;
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+  }
+
+  .hero-btns {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: var(--blue-mid);
+    color: var(--blue-tint);
+    border: none;
+    padding: 0.85rem 2rem;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 2px;
+    font-weight: 400;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.2s;
+  }
+
+  .btn-primary:hover { background: var(--blue-deep); }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--blue-mid);
+    border: 0.5px solid var(--blue-light);
+    padding: 0.85rem 2rem;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 2px;
+    font-weight: 400;
+    text-decoration: none;
+    display: inline-block;
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .btn-secondary:hover { border-color: var(--blue-mid); color: var(--blue-deep); }
+
+  .hero-right {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background: var(--border);
+    border: 0.5px solid var(--border);
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.4s forwards;
+  }
+
+  .hero-stat {
+    background: var(--neutral);
+    padding: 1.75rem;
+    transition: background 0.2s;
+  }
+
+  .hero-stat:hover { background: white; }
+
+  .hero-stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem;
+    font-weight: 400;
+    color: var(--blue-mid);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+
+  .hero-stat-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    font-weight: 400;
+  }
+
+  .hero-stat-desc {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-top: 0.5rem;
+    font-weight: 300;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-left { animation: fadeUp 0.7s ease 0.1s both; }
+
+  /* ── VALUE PROPS ── */
+  .values {
+    background: var(--blue-deep);
+    padding: 4rem 2.5rem;
+  }
+
+  .values-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: rgba(255,255,255,0.08);
+  }
+
+  .value-item {
+    padding: 2.5rem 2rem;
+    background: var(--blue-deep);
+  }
+
+  .value-mark {
+    width: 20px;
+    height: 1px;
+    background: var(--green-accent);
+    margin-bottom: 1.25rem;
+  }
+
+  .value-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: #E6F1FB;
+    margin-bottom: 0.6rem;
+    font-style: italic;
+  }
+
+  .value-desc {
+    font-size: 0.82rem;
+    color: #85B7EB;
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  /* ── HOW IT WORKS ── */
+  .how {
+    padding: 6rem 2.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--green-mid);
+    margin-bottom: 1rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .section-label::before {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 1px;
+    background: var(--green-accent);
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    font-weight: 400;
+    color: var(--blue-deep);
+    margin-bottom: 3.5rem;
+    line-height: 1.15;
+  }
+
+  .section-title em { font-style: italic; color: var(--blue-light); }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border: 0.5px solid var(--border);
+  }
+
+  .step {
+    padding: 2.5rem 2rem;
+    border-right: 0.5px solid var(--border);
+    position: relative;
+  }
+
+  .step:last-child { border-right: none; }
+
+  .step-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.5rem;
+    font-weight: 400;
+    color: var(--blue-tint);
+    line-height: 1;
+    margin-bottom: 1.25rem;
+  }
+
+  .step-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--blue-deep);
+    margin-bottom: 0.6rem;
+  }
+
+  .step-desc {
+    font-size: 0.83rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  .step-connector {
+    position: absolute;
+    top: 2.5rem;
+    right: -12px;
+    width: 24px;
+    height: 24px;
+    background: var(--neutral);
+    border: 0.5px solid var(--border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    color: var(--green-accent);
+    z-index: 1;
+  }
+
+  .step:last-child .step-connector { display: none; }
+
+  /* ── SERVICES ── */
+  .services {
+    padding: 6rem 2.5rem;
+    background: var(--neutral-dark);
+  }
+
+  .services-inner { max-width: 1200px; margin: 0 auto; }
+
+  .services-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .services-header-right {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    max-width: 280px;
+    line-height: 1.6;
+    font-weight: 300;
+    text-align: right;
+  }
+
+  .featured-badge {
+    display: inline-block;
+    background: var(--green-tint);
+    color: var(--green-deep);
+    font-size: 0.62rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 2px;
+    margin-bottom: 0.75rem;
+    font-weight: 500;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 0.5px solid var(--border);
+    margin-bottom: 1px;
+  }
+
+  .card {
+    background: var(--neutral);
+    padding: 2rem 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    transition: background 0.2s;
+    cursor: default;
+  }
+
+  .card:hover { background: white; }
+
+  .card.featured {
+    background: var(--blue-deep);
+    grid-column: span 1;
+  }
+
+  .card.featured:hover { background: #063660; }
+
+  .card-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.85rem;
+    color: var(--border);
+    font-weight: 400;
+  }
+
+  .card.featured .card-num { color: #378ADD; }
+
+  .card-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: var(--blue-deep);
+    line-height: 1.2;
+  }
+
+  .card.featured .card-name { color: #E6F1FB; }
+
+  .card-decision {
+    font-size: 0.78rem;
+    color: var(--green-deep);
+    font-weight: 400;
+    line-height: 1.5;
+    padding: 0.65rem 0.85rem;
+    background: var(--green-tint);
+    border-left: 2px solid var(--green-accent);
+    border-radius: 0;
+  }
+
+  .card.featured .card-decision {
+    background: rgba(99,153,34,0.12);
+    color: #97C459;
+    border-left-color: var(--green-accent);
+  }
+
+  .card-desc {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    font-weight: 300;
+    flex: 1;
+  }
+
+  .card.featured .card-desc { color: #85B7EB; }
+
+  .card-link {
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--blue-light);
+    font-weight: 500;
+    text-decoration: none;
+    margin-top: 0.5rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: gap 0.2s;
+  }
+
+  .card:hover .card-link { gap: 10px; }
+  .card.featured .card-link { color: #9FE1CB; }
+
+  /* ── ADVISORY ── */
+  .advisory {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 6rem 2.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+    border-top: 0.5px solid var(--border);
+  }
+
+  .advisory-left { }
+
+  .advisory-tag {
+    display: inline-block;
+    background: var(--blue-tint);
+    color: var(--blue-mid);
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 2px;
+    margin-bottom: 1.25rem;
+    font-weight: 500;
+  }
+
+  .advisory h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    font-weight: 400;
+    color: var(--blue-deep);
+    line-height: 1.15;
+    margin-bottom: 1rem;
+  }
+
+  .advisory h2 em { font-style: italic; color: var(--blue-light); }
+
+  .advisory-desc {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.8;
+    margin-bottom: 2rem;
+    font-weight: 300;
+  }
+
+  .advisory-features {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border: 0.5px solid var(--border);
+  }
+
+  .advisory-feature {
+    padding: 1.1rem 1.25rem;
+    border-bottom: 0.5px solid var(--border);
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    font-size: 0.83rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+    font-weight: 300;
+  }
+
+  .advisory-feature:last-child { border-bottom: none; }
+
+  .advisory-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--green-accent);
+    margin-top: 5px;
+    flex-shrink: 0;
+  }
+
+  /* ── WHY ── */
+  .why {
+    background: var(--neutral-dark);
+    padding: 6rem 2.5rem;
+    border-top: 0.5px solid var(--border);
+  }
+
+  .why-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
+    margin-top: 3rem;
+  }
+
+  .why-item { }
+
+  .why-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    color: var(--green-accent);
+    margin-bottom: 0.75rem;
+    font-style: italic;
+  }
+
+  .why-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--blue-deep);
+    margin-bottom: 0.5rem;
+  }
+
+  .why-desc {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  /* ── CTA ── */
+  .cta-section {
+    background: var(--blue-deep);
+    padding: 7rem 2.5rem;
+    text-align: center;
+  }
+
+  .cta-section h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 400;
+    color: #E6F1FB;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+  }
+
+  .cta-section h2 em { font-style: italic; color: #9FE1CB; }
+
+  .cta-section p {
+    font-size: 0.9rem;
+    color: #85B7EB;
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+  }
+
+  .btn-white {
+    background: #E6F1FB;
+    color: var(--blue-deep);
+    border: none;
+    padding: 0.95rem 2.5rem;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 2px;
+    font-weight: 500;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.2s;
+  }
+
+  .btn-white:hover { background: white; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--blue-deep);
+    border-top: 0.5px solid rgba(255,255,255,0.08);
+    padding: 2rem 2.5rem;
+  }
+
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #85B7EB;
+    letter-spacing: 0.04em;
+  }
+
+  .footer-logo span { font-style: italic; color: #639922; }
+
+  .footer-copy {
+    font-size: 0.72rem;
+    color: #378ADD;
+    font-weight: 300;
+    letter-spacing: 0.06em;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .footer-links a {
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #378ADD;
+    text-decoration: none;
+    font-weight: 400;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: #9FE1CB; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; min-height: auto; padding-top: 4rem; padding-bottom: 4rem; }
+    .hero-right { display: grid; grid-template-columns: 1fr 1fr; }
+    .values-inner { grid-template-columns: 1fr; }
+    .steps { grid-template-columns: 1fr; }
+    .step { border-right: none; border-bottom: 0.5px solid var(--border); }
+    .step:last-child { border-bottom: none; }
+    .step-connector { display: none; }
+    .services-grid { grid-template-columns: 1fr; }
+    .advisory { grid-template-columns: 1fr; gap: 3rem; }
+    .why-grid { grid-template-columns: 1fr; gap: 2rem; }
+    nav { padding: 0 1.25rem; }
+    .nav-links { gap: 1.25rem; }
+  }
+
+  @media (max-width: 600px) {
+    .hero-right { grid-template-columns: 1fr; }
+    .services-header { flex-direction: column; }
+    .services-header-right { text-align: left; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Caliber <span>Studios</span></a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#advisory">Advisory</a></li>
+    <li><a href="#why">About</a></li>
+    <li><a href="#contact" class="nav-cta">Book a call</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow">UX Research & Product Strategy</p>
+    <h1>Make better product<br>decisions, <em>faster.</em></h1>
+    <p class="hero-sub">Caliber Studios helps startups, product teams, and investors move forward with confidence — turning ambiguity into clarity through high-quality insight.</p>
+    <div class="hero-btns">
+      <a href="#services" class="btn-primary">Explore the menu</a>
+      <a href="#contact" class="btn-secondary">Book a consultation</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-stat">
+      <p class="hero-stat-num">48h</p>
+      <p class="hero-stat-label">Avg. time to first insight</p>
+      <p class="hero-stat-desc">From kickoff to initial findings — no long onboarding processes.</p>
+    </div>
+    <div class="hero-stat">
+      <p class="hero-stat-num">6</p>
+      <p class="hero-stat-label">Decision-focused offerings</p>
+      <p class="hero-stat-desc">Each built around a specific product question, not a generic deliverable.</p>
+    </div>
+    <div class="hero-stat">
+      <p class="hero-stat-num">1–3</p>
+      <p class="hero-stat-label">Weeks per sprint</p>
+      <p class="hero-stat-desc">Built for teams that need answers before the next board meeting.</p>
+    </div>
+  </div>
+</section>
+
+<!-- VALUE PROPS -->
+<section class="values">
+  <div class="values-inner">
+    <div class="value-item">
+      <div class="value-mark"></div>
+      <p class="value-title">Clarity over guesswork</p>
+      <p class="value-desc">Every engagement is designed to eliminate uncertainty at a specific decision point — not to generate research for research's sake.</p>
+    </div>
+    <div class="value-item">
+      <div class="value-mark"></div>
+      <p class="value-title">Decisions, not just data</p>
+      <p class="value-desc">You get a clear signal — build or don't build, launch or hold, trust or friction. Actionable by default.</p>
+    </div>
+    <div class="value-item">
+      <div class="value-mark"></div>
+      <p class="value-title">Built for high stakes</p>
+      <p class="value-desc">Senior-level thinking from day one. No junior handoffs, no bloated process. Just the work that actually moves things forward.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how">
+  <p class="section-label">Process</p>
+  <h2 class="section-title">Three steps to a <em>confident decision</em></h2>
+  <div class="steps">
+    <div class="step">
+      <p class="step-num">01</p>
+      <p class="step-title">Choose the decision</p>
+      <p class="step-desc">We start with the question — not the method. What do you need to know to move forward? That shapes everything else.</p>
+      <span class="step-connector">→</span>
+    </div>
+    <div class="step">
+      <p class="step-num">02</p>
+      <p class="step-title">Get real user insight</p>
+      <p class="step-desc">Rigorous, targeted research with the right users. No fluff. No unnecessary process. Just the signal you need.</p>
+      <span class="step-connector">→</span>
+    </div>
+    <div class="step">
+      <p class="step-num">03</p>
+      <p class="step-title">Move forward with confidence</p>
+      <p class="step-desc">A clear synthesis, a sharp recommendation, and the evidence behind it. You leave knowing exactly what to do next.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="services-inner">
+    <div class="services-header">
+      <div>
+        <p class="section-label">Services</p>
+        <h2 class="section-title" style="margin-bottom: 0;">The menu</h2>
+      </div>
+      <p class="services-header-right">Pick the decision you need answered. Each offering is scoped, focused, and built to deliver a clear outcome.</p>
+    </div>
+
+    <div class="services-grid">
+      <div class="card">
+        <span class="card-num">01</span>
+        <p class="card-name">First Impressions Audit</p>
+        <p class="card-decision">"Do people immediately understand what this is?"</p>
+        <p class="card-desc">Rapid perception testing with real users to assess clarity, comprehension, and first-moment trust. Know within days whether your product makes sense on sight.</p>
+        <a href="#contact" class="card-link">Learn more →</a>
+      </div>
+
+      <div class="card featured">
+        <span class="featured-badge">Most requested</span>
+        <span class="card-num">02</span>
+        <p class="card-name">Validation Sprint</p>
+        <p class="card-decision">"Is this worth building?"</p>
+        <p class="card-desc">High-impact research before you invest. Get a clear build/don't-build signal in under two weeks. The most important thing you can do before a product bet.</p>
+        <a href="#contact" class="card-link">Learn more →</a>
+      </div>
+
+      <div class="card">
+        <span class="card-num">03</span>
+        <p class="card-name">AI Trust & UX Audit</p>
+        <p class="card-decision">"Will users trust this AI feature?"</p>
+        <p class="card-desc">Evaluate how users perceive, interact with, and form trust around AI-driven product experiences. Critical before any AI feature ships.</p>
+        <a href="#contact" class="card-link">Learn more →</a>
+      </div>
+
+      <div class="card">
+        <span class="card-num">04</span>
+        <p class="card-name">Friction Finder</p>
+        <p class="card-decision">"Where are users getting stuck?"</p>
+        <p class="card-desc">Targeted usability audit that surfaces the exact friction points costing you engagement and conversion. Prioritized by impact, not volume.</p>
+        <a href="#contact" class="card-link">Learn more →</a>
+      </div>
+
+      <div class="card">
+        <span class="card-num">05</span>
+        <p class="card-name">Mental Model Mapping</p>
+        <p class="card-decision">"How do users actually think about this?"</p>
+        <p class="card-desc">Deep qualitative work to align your product's logic with the way your users naturally reason. The foundation for products that feel obvious.</p>
+        <a href="#contact" class="card-link">Learn more →</a>
+      </div>
+
+      <div class="card">
+        <span class="card-num">06</span>
+        <p class="card-name">Pre-Launch Confidence Check</p>
+        <p class="card-decision">"Are we ready to launch?"</p>
+        <p class="card-desc">A focused pre-launch review that flags critical risks before they become expensive post-launch problems. Ship with evidence, not hope.</p>
+        <a href="#contact" class="card-link">Learn more →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ADVISORY -->
+<section id="advisory">
+  <div class="advisory">
+    <div class="advisory-left">
+      <span class="advisory-tag">Ongoing partnership</span>
+      <h2>Research Partner —<br><em>Caliber Advisory</em></h2>
+      <p class="advisory-desc">For teams that need more than a one-off sprint. Caliber Advisory is an embedded research partnership — strategic support built into your product cadence, not bolted on after the fact.</p>
+      <a href="#contact" class="btn-primary">Talk about advisory</a>
+    </div>
+    <div class="advisory-right">
+      <div class="advisory-features">
+        <div class="advisory-feature">
+          <span class="advisory-dot"></span>
+          Ongoing access to senior UX research — no sourcing, no ramp-up time
+        </div>
+        <div class="advisory-feature">
+          <span class="advisory-dot"></span>
+          Monthly research cadence aligned to your product roadmap
+        </div>
+        <div class="advisory-feature">
+          <span class="advisory-dot"></span>
+          Strategic input on what to research — not just execution
+        </div>
+        <div class="advisory-feature">
+          <span class="advisory-dot"></span>
+          Direct access to insights as they emerge, not in quarterly reports
+        </div>
+        <div class="advisory-feature">
+          <span class="advisory-dot"></span>
+          Flexible scope — ramp up or down based on your needs
+        </div>
+        <div class="advisory-feature">
+          <span class="advisory-dot"></span>
+          Treated as a team member — present in standups, reviews, and planning
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY CALIBER -->
+<section class="why" id="why">
+  <div class="why-inner">
+    <p class="section-label">Why Caliber</p>
+    <h2 class="section-title">Senior thinking.<br><em>No fluff. No waste.</em></h2>
+    <div class="why-grid">
+      <div class="why-item">
+        <p class="why-num">I.</p>
+        <p class="why-title">Senior from day one</p>
+        <p class="why-desc">You work directly with the researcher — not a project manager relaying messages. Every engagement is led by someone who has done this at the highest level.</p>
+      </div>
+      <div class="why-item">
+        <p class="why-num">II.</p>
+        <p class="why-title">Focused on what matters</p>
+        <p class="why-desc">No unnecessary process. No research theater. Every step is in service of the decision you need to make — and nothing else.</p>
+      </div>
+      <div class="why-item">
+        <p class="why-num">III.</p>
+        <p class="why-title">Startup-native thinking</p>
+        <p class="why-desc">Built for teams moving fast in high-stakes environments. The methods are rigorous — the delivery is built for speed and action.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="cta-section" id="contact">
+  <h2>Not sure what<br><em>you need?</em></h2>
+  <p>Let's figure it out together. A 30-minute call is usually enough to know.</p>
+  <a href="mailto:hello@caliberstudios.com" class="btn-white">Book a call</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <span class="footer-logo">Caliber <span>Studios</span></span>
+    <p class="footer-copy">© 2026 Caliber Studios. All rights reserved.</p>
+    <ul class="footer-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#advisory">Advisory</a></li>
+      <li><a href="mailto:hello@caliberstudios.com">Contact</a></li>
+    </ul>
+  </div>
+</footer>
+
+</body>
 </html>
