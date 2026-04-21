@@ -3,1419 +3,2721 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Caliber Studios — UX Research & Product Strategy</title>
+<title>Caliber Studios - UX Research & Product Strategy</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+*, *::before, *::after { box-sizing: border-box; }
 
 :root {
-  --bg: #0b0b0b;
-  --bg-2: #111111;
-  --bg-card: #141414;
-  --bg-card-hover: #1a1a1a;
-  --border: rgba(255,255,255,0.07);
-  --border-hover: rgba(255,255,255,0.14);
-  --text: #f0ede6;
-  --text-muted: rgba(240,237,230,0.45);
-  --text-faint: rgba(240,237,230,0.22);
-  --green: #7ab648;
-  --green-dim: rgba(122,182,72,0.12);
-  --green-border: rgba(122,182,72,0.3);
-  --blue: #4a9fd4;
-  --blue-dim: rgba(74,159,212,0.1);
-  --gold: #c9b882;
-  --gold-dim: rgba(201,184,130,0.1);
+  --page-dark: #0d0f10;
+  --page-dark-soft: #151819;
+  --page-light: #f2efe8;
+  --page-light-soft: #e8e3da;
+  --surface-dark: rgba(255,255,255,0.04);
+  --surface-dark-strong: rgba(255,255,255,0.07);
+  --surface-light: rgba(12,14,15,0.03);
+  --surface-light-strong: rgba(12,14,15,0.08);
+  --border-dark: rgba(255,255,255,0.12);
+  --border-light: rgba(12,14,15,0.12);
+  --text-on-dark: #f7f3eb;
+  --text-on-dark-muted: rgba(247,243,235,0.72);
+  --text-on-dark-faint: rgba(247,243,235,0.46);
+  --text-on-light: #111415;
+  --text-on-light-muted: rgba(17,20,21,0.72);
+  --text-on-light-faint: rgba(17,20,21,0.46);
+  --accent: #7ab648;
+  --accent-strong: #6a9e3f;
+  --shadow-soft: 0 18px 50px rgba(0,0,0,0.14);
+  --radius-xl: 30px;
+  --radius-lg: 22px;
+  --radius-md: 16px;
+  --content-width: 1200px;
+  --nav-height: 76px;
+  --section-pad: clamp(3.25rem, 6vw, 5.5rem);
 }
 
 html { scroll-behavior: smooth; }
 
 body {
-  font-family: 'DM Sans', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  font-weight: 400;
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  background: var(--page-dark);
+  color: var(--text-on-dark);
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
+  text-rendering: optimizeLegibility;
 }
 
-/* ── NOISE OVERLAY ── */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.4;
+img {
+  max-width: 100%;
+  display: block;
 }
 
-/* ── NAV ── */
-nav {
-  position: fixed;
-  top: 0;
+a {
+  color: inherit;
+}
+
+main {
+  overflow: clip;
+}
+
+.container {
+  width: min(calc(100% - 2.5rem), var(--content-width));
+  margin: 0 auto;
+}
+
+.section {
+  padding: var(--section-pad) 0;
+}
+
+.section-dark {
+  background: var(--page-dark);
+  color: var(--text-on-dark);
+}
+
+.section-dark .eyebrow,
+.section-dark .section-copy,
+.section-dark .section-note,
+.section-dark .service-desc,
+.section-dark .proof-desc,
+.section-dark .case-copy,
+.section-dark .about-copy,
+.section-dark .contact-copy,
+.section-dark .contact-meta,
+.section-dark .detail-value,
+.section-dark .footer-copy,
+.section-dark .footer-links a,
+.section-dark .story-copy,
+.section-dark .story-list li,
+.section-dark .use-case-desc,
+.section-dark .support-copy,
+.section-dark .support-list li,
+.section-dark .proof-line {
+  color: var(--text-on-dark-muted);
+}
+
+.section-light {
+  background: var(--page-light);
+  color: var(--text-on-light);
+}
+
+.section-light .eyebrow,
+.section-light .section-copy,
+.section-light .section-note,
+.section-light .service-desc,
+.section-light .proof-desc,
+.section-light .case-copy,
+.section-light .about-copy,
+.section-light .contact-copy,
+.section-light .contact-meta,
+.section-light .detail-value,
+.section-light .footer-copy,
+.section-light .footer-links a,
+.section-light .story-copy,
+.section-light .story-list li,
+.section-light .use-case-desc,
+.section-light .support-copy,
+.section-light .support-list li,
+.section-light .proof-line {
+  color: var(--text-on-light-muted);
+}
+
+.section-header {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 2rem;
+  align-items: start;
+  margin-bottom: 3rem;
+}
+
+.services-header-copy {
+  padding-top: 2.35rem;
+}
+
+.eyebrow {
+  margin: 0 0 1rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.section-title,
+.hero-title,
+.about-name,
+.contact-title {
+  margin: 0;
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 500;
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+}
+
+.section-title {
+  font-size: clamp(2.4rem, 4.2vw, 4rem);
+}
+
+.section-copy,
+.hero-sub,
+.about-copy,
+.contact-copy,
+.proof-desc,
+.case-copy,
+.service-desc {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+.section-note {
+  margin: 0.75rem 0 0;
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+.marquee-band {
+  border-top: 1px solid var(--border-dark);
+  border-bottom: 1px solid var(--border-dark);
+  background: rgba(255,255,255,0.02);
+  overflow: hidden;
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 26s linear infinite;
+}
+
+.marquee-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 2rem;
+  font-size: 0.82rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-on-dark-faint);
+  white-space: nowrap;
+}
+
+.marquee-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+
+.story-grid,
+.support-grid,
+.use-cases-grid,
+.case-study-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.story-grid {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+
+.story-card,
+.support-card,
+.use-case-card {
+  border: 1px solid;
+  border-radius: 24px;
+  padding: 1.45rem 1.5rem;
+}
+
+.section-light .story-card,
+.section-light .support-card,
+.section-light .use-case-card {
+  border-color: var(--border-light);
+  background: rgba(255,255,255,0.36);
+}
+
+.section-dark .story-card,
+.section-dark .support-card,
+.section-dark .use-case-card {
+  border-color: var(--border-dark);
+  background: rgba(255,255,255,0.03);
+}
+
+.story-kicker,
+.support-kicker,
+.use-case-kicker {
+  margin: 0 0 0.55rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--accent-strong);
+}
+
+.story-title,
+.support-title,
+.use-case-title {
+  margin: 0 0 0.55rem;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.9rem;
+  line-height: 1.05;
+  font-weight: 500;
+}
+
+.story-copy,
+.support-copy,
+.use-case-desc,
+.proof-line {
+  margin: 0;
+  font-size: 0.96rem;
+  line-height: 1.7;
+}
+
+.support-meta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid;
+}
+
+.section-light .support-meta {
+  border-color: var(--border-light);
+}
+
+.section-dark .support-meta {
+  border-color: var(--border-dark);
+}
+
+.support-meta-block {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.support-meta-label {
+  margin: 0;
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--text-on-dark-faint);
+}
+
+.support-meta-value {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+
+.story-list,
+.support-list {
+  list-style: none;
+  margin: 1rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.8rem;
+}
+
+.story-list li,
+.support-list li {
+  position: relative;
+  padding-left: 1rem;
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+
+.story-list li::before,
+.support-list li::before {
+  content: "";
+  position: absolute;
   left: 0;
+  top: 0.7rem;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent-strong);
+}
+
+.services-simple {
+  display: grid;
+  gap: 1rem;
+}
+
+.service-carousel {
+  position: relative;
+  margin-top: 1rem;
+  overflow: hidden;
+  padding-block: 0.35rem 0.5rem;
+}
+
+.service-carousel::before,
+.service-carousel::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 36px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.service-carousel::before {
+  left: 0;
+  background: linear-gradient(to right, var(--page-light), rgba(247,243,235,0));
+}
+
+.service-carousel::after {
   right: 0;
-  z-index: 100;
-  padding: 0 2.5rem;
-  height: 64px;
+  background: linear-gradient(to left, var(--page-light), rgba(247,243,235,0));
+}
+
+.service-carousel-controls {
+  display: flex;
+  justify-content: center;
+  gap: 0.7rem;
+  margin-top: 1rem;
+}
+
+.service-carousel-button {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 1px solid var(--border-light);
+  background: rgba(255,255,255,0.5);
+  color: var(--text-on-light);
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.service-carousel-button:hover {
+  transform: translateY(-1px);
+  border-color: rgba(17,20,21,0.18);
+  background: rgba(255,255,255,0.78);
+}
+
+.service-carousel-button:focus-visible {
+  outline: 2px solid rgba(122,182,72,0.55);
+  outline-offset: 3px;
+}
+
+.service-carousel-track {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.service-carousel-track::-webkit-scrollbar {
+  display: none;
+}
+
+.services-showcase {
+  display: grid;
+  gap: 1.8rem;
+}
+
+.services-showcase-intro {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  gap: 0.8rem;
+}
+
+.services-showcase-intro .section-title {
+  max-width: 800px;
+}
+
+.services-showcase-copy {
+  margin: 0;
+  max-width: 720px;
+  font-size: 0.98rem;
+  line-height: 1.75;
+  color: var(--text-on-light-muted);
+}
+
+.service-simple-card {
+  flex: 0 0 clamp(400px, calc((100vw - 11rem) / 2), 540px);
+  scroll-snap-align: start;
+  border: 1px solid var(--border-light);
+  border-radius: 24px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.52), rgba(255,255,255,0.3));
+  padding: 1.35rem 1.35rem 1.2rem;
+  box-shadow: 0 12px 28px rgba(17,20,21,0.05);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease, background-color 0.22s ease;
+  display: block;
+}
+
+.service-simple-card::after {
+  content: "";
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  width: 56px;
+  height: 56px;
+  border-top: 1px solid rgba(17,20,21,0.1);
+  border-right: 1px solid rgba(17,20,21,0.1);
+  border-radius: 0 18px 0 0;
+  pointer-events: none;
+}
+
+.service-simple-card::before {
+  content: "";
+  display: block;
+  width: 44px;
+  height: 3px;
+  border-radius: 999px;
+  background: var(--accent);
+  margin-bottom: 0.95rem;
+}
+
+.service-simple-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 34px rgba(17,20,21,0.08);
+  border-color: rgba(17,20,21,0.18);
+}
+
+.service-simple-name {
+  margin: 0 0 0.55rem;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.7rem;
+  line-height: 1.05;
+  font-weight: 500;
+  color: var(--text-on-light);
+}
+
+.service-simple-question {
+  margin: 0 0 0.9rem;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.1rem;
+  line-height: 1.25;
+  font-style: italic;
+  color: var(--accent-strong);
+}
+
+.service-simple-desc {
+  margin: 0;
+  font-size: 0.94rem;
+  line-height: 1.7;
+  color: var(--text-on-light-muted);
+}
+
+.service-simple-meta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem;
+  margin-top: 1rem;
+  padding-top: 0.95rem;
+  border-top: 1px solid var(--border-light);
+}
+
+.service-simple-meta-block {
+  display: grid;
+  gap: 0.22rem;
+}
+
+.service-simple-meta-label {
+  margin: 0;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--text-on-light-muted);
+}
+
+.service-simple-meta-value {
+  margin: 0;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--text-on-light);
+}
+
+.process-header {
+  margin-bottom: 1.6rem;
+}
+
+.process-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  border: 1px solid var(--border-dark);
+}
+
+.process-card {
+  position: relative;
+  min-height: 320px;
+  padding: 8rem 2rem 2rem;
+  border-right: 1px solid var(--border-dark);
+}
+
+.process-card:last-child {
+  border-right: none;
+}
+
+.process-number {
+  position: absolute;
+  top: 1.6rem;
+  left: 2rem;
+  margin: 0;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(3.4rem, 5vw, 4.6rem);
+  line-height: 1;
+  color: rgba(247,243,235,0.18);
+  text-shadow: 0 0 28px rgba(255,255,255,0.03);
+}
+
+.process-kicker {
+  margin: 0 0 0.7rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--accent-strong);
+}
+
+.process-title {
+  margin: 0 0 0.8rem;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.95rem;
+  line-height: 1.05;
+  font-weight: 500;
+}
+
+.process-copy {
+  margin: 0;
+  max-width: 29ch;
+  font-size: 0.96rem;
+  line-height: 1.75;
+  color: var(--text-on-dark-muted);
+}
+
+.support-intro {
+  display: grid;
+  gap: 1rem;
+  margin-bottom: 2.4rem;
+}
+
+.support-intro-top {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.support-intro-note {
+  margin: 0;
+  max-width: 560px;
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: var(--text-on-dark-faint);
+}
+
+.support-intro-title {
+  margin: 0;
+  max-width: 820px;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(2.4rem, 4.2vw, 4.2rem);
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+  font-weight: 500;
+}
+
+.case-studies-intro {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.42fr) minmax(0, 1fr);
+  gap: 2rem;
+  align-items: start;
+  margin-bottom: 2.2rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.case-studies-title {
+  margin: 0;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(2rem, 3vw, 3rem);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  font-weight: 500;
+}
+
+.case-studies-copy {
+  margin: 0;
+  max-width: 720px;
+  font-size: 0.98rem;
+  line-height: 1.8;
+  color: var(--text-on-light-muted);
+}
+
+.proof-shell {
+  position: relative;
+  overflow: hidden;
+  border-radius: 30px;
+  border: 1px solid var(--border-light);
+  background:
+    linear-gradient(90deg, rgba(255,255,255,0.96) 0 48%, rgba(255,255,255,0.8) 48% 100%),
+    radial-gradient(circle at 78% 50%, rgba(122,182,72,0.12), transparent 28%);
+  box-shadow: 0 16px 40px rgba(17,20,21,0.06);
+}
+
+.proof-shell::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 82% 30%, rgba(122,182,72,0.08), transparent 20%),
+    radial-gradient(circle at 70% 80%, rgba(17,20,21,0.05), transparent 22%);
+  pointer-events: none;
+}
+
+.proof-shell::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, transparent 0 55%, rgba(17,20,21,0.05) 55% 55.2%, transparent 55.2%),
+    radial-gradient(circle, rgba(17,20,21,0.1) 0 1px, transparent 1px);
+  background-size: auto, 24px 24px;
+  opacity: 0.12;
+  pointer-events: none;
+}
+
+.proof-layout {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 0.58fr) minmax(0, 1fr);
+  align-items: stretch;
+  min-height: 430px;
+  z-index: 1;
+}
+
+.proof-copy-panel {
+  padding: 2.5rem 2.4rem;
+  border-right: 1px solid var(--border-light);
+  background: rgba(255,255,255,0.88);
+}
+
+.proof-copy-panel .eyebrow {
+  margin-bottom: 0.85rem;
+}
+
+.proof-copy-panel .section-title {
+  font-size: clamp(2.4rem, 4vw, 3.6rem);
+}
+
+.proof-copy-panel .section-copy {
+  margin-top: 1rem;
+}
+
+.proof-card-stack {
+  display: grid;
+  align-content: center;
+  gap: 1rem;
+  padding: 2rem;
+}
+
+.proof-card-stack .case-study-card {
+  background: rgba(255,255,255,0.82);
+}
+
+.support-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.support-card {
+  min-height: 100%;
+}
+
+.support-card .support-title {
+  font-size: 1.55rem;
+}
+
+.use-cases-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.case-study-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.case-study-card {
+  border: 1px solid var(--border-light);
+  border-radius: 24px;
+  padding: 1.25rem 1.3rem 1.35rem;
+  background: rgba(17,20,21,0.03);
+  position: relative;
+}
+
+a.case-study-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.case-study-card::before {
+  content: "";
+  display: block;
+  width: 42px;
+  height: 2px;
+  background: var(--accent);
+  margin-bottom: 1rem;
+}
+
+.case-study-label {
+  margin: 0 0 0.8rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--accent-strong);
+}
+
+.case-study-name {
+  margin: 0 0 0.55rem;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.8rem;
+  line-height: 1.05;
+  font-weight: 500;
+  color: var(--text-on-light);
+}
+
+.case-study-desc {
+  margin: 0;
+  font-size: 0.94rem;
+  line-height: 1.7;
+  color: var(--text-on-light-muted);
+}
+
+.case-study-meta {
+  margin: 1rem 0 0;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--border-light);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-on-light-faint);
+}
+
+.proof-stack {
+  display: grid;
+  gap: 1rem;
+}
+
+.proof-item {
+  border-top: 1px solid var(--border-dark);
+  padding-top: 1rem;
+}
+
+.proof-item:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+
+.btn-row {
+  display: flex;
+  gap: 0.9rem;
+  flex-wrap: wrap;
+}
+
+.btn-primary,
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0.85rem 1.35rem;
+  border-radius: 999px;
+  text-decoration: none;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transition: transform 0.25s ease, background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+}
+
+.btn-primary:hover,
+.btn-secondary:hover,
+.nav-cta:hover,
+.service-card:hover,
+.proof-card:hover,
+.detail-list:hover,
+.contact-card:hover {
+  transform: translateY(-2px);
+}
+
+.section-dark .btn-primary {
+  background: var(--page-light);
+  color: var(--text-on-light);
+}
+
+.section-dark .btn-secondary {
+  border: 1px solid var(--border-dark);
+  color: var(--text-on-dark);
+  background: transparent;
+}
+
+.section-light .btn-primary {
+  background: var(--text-on-light);
+  color: var(--page-light);
+}
+
+.section-light .btn-secondary {
+  border: 1px solid var(--border-light);
+  color: var(--text-on-light);
+  background: transparent;
+}
+
+.section-dark .btn-secondary:hover {
+  background: rgba(255,255,255,0.05);
+  border-color: rgba(255,255,255,0.2);
+}
+
+.section-light .btn-secondary:hover {
+  background: rgba(17,20,21,0.05);
+  border-color: rgba(17,20,21,0.18);
+}
+
+.site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  background: rgba(13,15,16,0.78);
+  border-bottom: 1px solid var(--border-dark);
+}
+
+.nav-inner {
+  min-height: var(--nav-height);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: rgba(11,11,11,0.8);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 0.5px solid var(--border);
+  gap: 1.5rem;
 }
 
 .nav-logo {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.1rem;
-  font-weight: 400;
-  color: var(--text);
-  letter-spacing: 0.06em;
   text-decoration: none;
+  font-size: 1rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 600;
 }
 
 .nav-logo span {
-  font-style: italic;
-  color: var(--green);
+  color: var(--accent);
 }
 
 .nav-links {
   display: flex;
-  align-items: center;
-  gap: 2rem;
+  gap: 1.75rem;
   list-style: none;
+  margin: 0;
+  padding: 0;
+  align-items: center;
 }
 
 .nav-links a {
   text-decoration: none;
-  font-size: 0.72rem;
-  letter-spacing: 0.14em;
+  font-size: 0.76rem;
   text-transform: uppercase;
-  color: var(--text-muted);
-  font-weight: 400;
-  transition: color 0.2s;
+  letter-spacing: 0.16em;
+  color: var(--text-on-dark-faint);
+  transition: color 0.25s ease;
 }
 
-.nav-links a:hover { color: var(--text); }
+.nav-links a:hover {
+  color: var(--text-on-dark);
+}
 
 .nav-cta {
-  border: 0.5px solid rgba(240,237,230,0.2) !important;
-  padding: 0.45rem 1.1rem;
-  border-radius: 100px !important;
-  color: var(--text) !important;
-  transition: border-color 0.2s, background 0.2s !important;
+  padding: 0.7rem 1rem;
+  border-radius: 999px;
+  border: 1px solid var(--border-dark);
+  color: var(--text-on-dark) !important;
 }
 
-.nav-cta:hover {
-  border-color: rgba(240,237,230,0.5) !important;
-  background: rgba(240,237,230,0.05) !important;
-}
-
-/* ── HERO ── */
 .hero {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 8rem 2rem 6rem;
+  padding: 1.4rem 0 2.4rem;
   position: relative;
 }
 
-.hero-glow {
+.hero::before {
+  content: "";
   position: absolute;
-  top: 20%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 600px;
-  height: 400px;
-  background: radial-gradient(ellipse, rgba(122,182,72,0.06) 0%, transparent 70%);
+  inset: 0;
+  background:
+    radial-gradient(circle at 18% 22%, rgba(135,152,139,0.14), transparent 30%),
+    radial-gradient(circle at 82% 18%, rgba(255,255,255,0.05), transparent 26%);
   pointer-events: none;
 }
 
-.hero-tag {
+.hero-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+  align-items: end;
+  min-height: calc(52vh - var(--nav-height));
+}
+
+.hero-copy {
+  max-width: 760px;
+  padding-top: 2.2rem;
+  align-self: start;
+  overflow: visible;
+}
+
+.hero-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.88fr) minmax(420px, 1.12fr);
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.hero-pill-row {
+  display: flex;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+  margin: 1.15rem 0 1.45rem;
+}
+
+.hero-pill {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  font-size: 0.68rem;
-  letter-spacing: 0.2em;
+  min-height: 36px;
+  padding: 0.45rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid var(--border-dark);
+  background: rgba(255,255,255,0.03);
+  font-size: 0.74rem;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--green);
-  margin-bottom: 2rem;
-  font-weight: 400;
-  opacity: 0;
-  animation: fadeUp 0.7s ease 0.1s forwards;
+  color: var(--text-on-dark-faint);
 }
 
-.hero-tag::before, .hero-tag::after {
-  content: '';
+.hero-visual {
+  position: relative;
+  min-height: 430px;
+  display: grid;
+  place-items: center end;
+  overflow: visible;
+}
+
+.hero-visual::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, rgba(255,255,255,0.16) 0 1.5px, transparent 1.5px);
+  background-size: 26px 26px;
+  opacity: 0.08;
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent 88%);
+}
+
+.hero-art {
+  position: relative;
+  z-index: 1;
+  width: min(42vw, 540px);
+  aspect-ratio: 1 / 1;
+  max-width: none;
+  margin-right: -4vw;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.12);
+  filter: drop-shadow(0 24px 50px rgba(0,0,0,0.28));
+}
+
+.hero-art img {
+  width: 100%;
+  height: 100%;
   display: block;
-  width: 20px;
-  height: 0.5px;
-  background: var(--green);
-  opacity: 0.5;
+  object-fit: cover;
+  object-position: center center;
 }
 
-.hero h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(2.4rem, 5vw, 4.5rem);
-  font-weight: 400;
-  line-height: 1.0;
-  color: var(--text);
-  margin-bottom: 1.75rem;
-  max-width: 900px;
-  letter-spacing: -0.01em;
-  opacity: 0;
-  animation: fadeUp 0.8s ease 0.2s forwards;
+.hero-wave {
+  position: absolute;
+  inset: 9% 4% 10% 6%;
+  border-radius: 48px;
+  background:
+    radial-gradient(circle at 22% 28%, rgba(122,182,72,0.1), transparent 22%),
+    radial-gradient(circle at 76% 30%, rgba(255,255,255,0.05), transparent 24%),
+    radial-gradient(circle at 44% 72%, rgba(255,255,255,0.04), transparent 28%);
+  border: 1px solid rgba(255,255,255,0.04);
 }
 
-.hero h1 em {
+.hero-wave::before,
+.hero-wave::after {
+  content: "";
+  position: absolute;
+  inset: 8% 6% 14%;
+  border-radius: 42px;
+  border: 1px solid rgba(255,255,255,0.08);
+  opacity: 0.55;
+}
+
+.hero-wave::after {
+  inset: 20% 12% 0;
+}
+
+.hero-wave i,
+.hero-wave b,
+.hero-wave span {
+  position: absolute;
+  display: block;
+  pointer-events: none;
+}
+
+.hero-wave i {
+  inset: 18% 12% auto 18%;
+  height: 1px;
+  background: linear-gradient(to right, rgba(255,255,255,0.1), transparent);
+}
+
+.hero-wave b {
+  right: 10%;
+  top: 18%;
+  width: 86px;
+  height: 86px;
+  border-top: 1px solid rgba(255,255,255,0.12);
+  border-right: 1px solid rgba(255,255,255,0.12);
+  border-radius: 0 26px 0 0;
+  opacity: 0.7;
+}
+
+.hero-wave span {
+  left: 16%;
+  bottom: 14%;
+  width: 120px;
+  height: 60px;
+  border-left: 1px solid rgba(255,255,255,0.09);
+  border-bottom: 1px solid rgba(255,255,255,0.09);
+  border-radius: 0 0 0 60px;
+}
+
+.hero-orb {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid var(--border-dark);
+  background:
+    radial-gradient(circle at 32% 28%, rgba(255,255,255,0.12), transparent 28%),
+    radial-gradient(circle at 68% 72%, rgba(122,182,72,0.08), transparent 34%),
+    rgba(255,255,255,0.03);
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+}
+
+.hero-orb::before,
+.hero-orb::after {
+  content: "";
+  position: absolute;
+  inset: 12%;
+  border-radius: 50%;
+  opacity: 0.55;
+}
+
+.hero-orb::after {
+  inset: 0;
+  opacity: 0.22;
+}
+
+.hero-orb-1 {
+  width: 250px;
+  height: 250px;
+  left: 4%;
+  top: 11%;
+}
+
+.hero-orb-1::before {
+  background:
+    linear-gradient(90deg, transparent 0 36%, rgba(255,255,255,0.18) 36% 39%, transparent 39% 61%, rgba(255,255,255,0.14) 61% 64%, transparent 64%),
+    linear-gradient(transparent 0 36%, rgba(122,182,72,0.16) 36% 39%, transparent 39% 61%, rgba(255,255,255,0.08) 61% 64%, transparent 64%);
+}
+
+.hero-orb-2 {
+  width: 180px;
+  height: 180px;
+  left: 50%;
+  top: 2%;
+}
+
+.hero-orb-2::before {
+  background:
+    repeating-radial-gradient(circle at 50% 50%, transparent 0 13px, rgba(255,255,255,0.12) 13px 15px),
+    radial-gradient(circle at 50% 50%, rgba(122,182,72,0.16), transparent 62%);
+}
+
+.hero-orb-3 {
+  width: 220px;
+  height: 220px;
+  left: 30%;
+  bottom: 0;
+}
+
+.hero-orb-3::before {
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.08), transparent 42%),
+    repeating-linear-gradient(115deg, rgba(255,255,255,0.14) 0 4px, transparent 4px 16px);
+}
+
+.hero-orb-4 {
+  width: 112px;
+  height: 112px;
+  right: 2%;
+  top: 12%;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(255,255,255,0.16), transparent 58%),
+    rgba(255,255,255,0.04);
+}
+
+.hero-orb-4::before {
+  background:
+    radial-gradient(circle, rgba(122,182,72,0.18) 0 3px, transparent 3px);
+  background-size: 20px 20px;
+}
+
+.hero-orb-5 {
+  width: 128px;
+  height: 128px;
+  right: 16%;
+  bottom: 10%;
+}
+
+.hero-orb-5::before {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.08), transparent),
+    repeating-linear-gradient(0deg, transparent 0 18px, rgba(255,255,255,0.1) 18px 20px);
+}
+
+.hero-orb-6 {
+  width: 96px;
+  height: 96px;
+  left: 62%;
+  bottom: 28%;
+  background:
+    radial-gradient(circle at 65% 35%, rgba(122,182,72,0.18), transparent 40%),
+    rgba(255,255,255,0.03);
+}
+
+.hero-orb-6::before {
+  background:
+    linear-gradient(45deg, transparent 0 44%, rgba(255,255,255,0.16) 44% 48%, transparent 48% 100%);
+}
+
+.hero-title {
+  font-size: clamp(2.45rem, 4.9vw, 4.35rem);
+  display: inline-block;
+  overflow: visible;
+  line-height: 1.14;
+  margin-bottom: 0.65rem;
+  margin-top: 0.18em;
+  padding-top: 0.18em;
+}
+
+.hero-title em,
+.section-title em,
+.contact-title em {
   font-style: italic;
-  color: var(--gold);
+  color: var(--accent);
 }
 
 .hero-sub {
-  font-size: 0.95rem;
-  color: var(--text-muted);
-  line-height: 1.8;
-  max-width: 480px;
-  margin: 0 auto 3rem;
-  font-weight: 400;
-  opacity: 0;
-  animation: fadeUp 0.8s ease 0.35s forwards;
+  max-width: 580px;
+  font-size: 0.94rem;
+  margin-bottom: 0.95rem;
 }
 
-.hero-btns {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-  flex-wrap: wrap;
-  opacity: 0;
-  animation: fadeUp 0.8s ease 0.5s forwards;
+.hero-panel {
+  padding: 1.1rem 1.15rem;
+  background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+  border: 1px solid var(--border-dark);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-soft);
 }
 
-.btn-primary {
-  background: var(--text);
-  color: var(--bg);
-  border: none;
-  padding: 0.85rem 2.25rem;
-  font-family: 'DM Sans', sans-serif;
+.panel-title {
+  margin: 0 0 0.4rem;
   font-size: 0.72rem;
+  text-transform: uppercase;
   letter-spacing: 0.16em;
-  text-transform: uppercase;
-  cursor: pointer;
-  border-radius: 100px;
-  font-weight: 500;
-  text-decoration: none;
-  display: inline-block;
-  transition: opacity 0.2s, transform 0.2s;
+  color: var(--text-on-dark-faint);
 }
 
-.btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
-
-.btn-ghost {
-  background: transparent;
-  color: var(--text-muted);
-  border: 0.5px solid var(--border-hover);
-  padding: 0.85rem 2.25rem;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.72rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  cursor: pointer;
-  border-radius: 100px;
-  font-weight: 400;
-  text-decoration: none;
-  display: inline-block;
-  transition: color 0.2s, border-color 0.2s, transform 0.2s;
+.panel-copy {
+  margin: 0 0 0.85rem;
+  font-size: 0.89rem;
+  line-height: 1.55;
+  color: var(--text-on-dark-muted);
 }
 
-.btn-ghost:hover { color: var(--text); border-color: rgba(255,255,255,0.3); transform: translateY(-1px); }
-
-/* floating cards row */
-.hero-cards {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-  margin-top: 5rem;
-  flex-wrap: wrap;
-  opacity: 0;
-  animation: fadeUp 0.9s ease 0.65s forwards;
+.panel-lead {
+  margin: 0 0 0.65rem;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.18rem;
+  line-height: 1.12;
 }
 
-.hero-chip {
-  background: var(--bg-card);
-  border: 0.5px solid var(--border);
-  border-radius: 100px;
-  padding: 0.55rem 1.1rem;
-  font-size: 0.72rem;
-  color: var(--text-muted);
-  letter-spacing: 0.06em;
-  white-space: nowrap;
-}
-
-.hero-chip.green {
-  background: var(--green-dim);
-  border-color: var(--green-border);
-  color: var(--green);
-}
-
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(18px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* ── MARQUEE VALUE STRIP ── */
-.strip {
-  border-top: 0.5px solid var(--border);
-  border-bottom: 0.5px solid var(--border);
-  overflow: hidden;
-  padding: 1.1rem 0;
-  background: var(--bg-2);
-}
-
-.strip-track {
-  display: flex;
-  gap: 0;
-  animation: marquee 22s linear infinite;
-  width: max-content;
-}
-
-.strip-item {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  padding: 0 2.5rem;
-  font-size: 0.7rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--text-faint);
-  font-weight: 400;
-  white-space: nowrap;
-}
-
-.strip-dot {
-  width: 3px;
-  height: 3px;
-  border-radius: 50%;
-  background: var(--green);
-  flex-shrink: 0;
-}
-
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-
-/* ── SECTION SHARED ── */
-.section {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 7rem 2.5rem;
-}
-
-.eyebrow {
-  font-size: 0.65rem;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--green);
-  margin-bottom: 1.25rem;
-  font-weight: 400;
-  display: flex;
-  align-items: center;
-  gap: 0.7rem;
-}
-
-.eyebrow::before {
-  content: '';
-  display: block;
-  width: 18px;
-  height: 0.5px;
-  background: var(--green);
-}
-
-.section-title {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(2rem, 4vw, 3.2rem);
-  font-weight: 400;
-  color: var(--text);
-  line-height: 1.1;
-  margin-bottom: 1rem;
-}
-
-.section-title em { font-style: italic; color: var(--gold); }
-
-/* ── HOW IT WORKS ── */
-.how-grid {
+.panel-equation {
   display: grid;
-  grid-template-columns: repeat(3,1fr);
-  gap: 1px;
-  background: var(--border);
-  border: 0.5px solid var(--border);
-  margin-top: 3.5rem;
+  grid-template-columns: 1fr auto 1fr auto 1.1fr;
+  gap: 0.65rem;
+  align-items: center;
+  margin-bottom: 0.8rem;
 }
 
-.step {
-  background: var(--bg);
-  padding: 2.5rem 2rem;
-  transition: background 0.2s;
-}
-
-.step:hover { background: var(--bg-card); }
-
-.step-num {
-  font-family: 'Playfair Display', serif;
-  font-size: 4rem;
-  font-weight: 400;
-  color: rgba(240,237,230,0.06);
-  line-height: 1;
-  margin-bottom: 1.5rem;
-}
-
-.step-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.2rem;
-  font-weight: 400;
-  color: var(--text);
-  margin-bottom: 0.6rem;
-}
-
-.step-desc {
-  font-size: 0.82rem;
-  color: var(--text-muted);
-  line-height: 1.7;
-  font-weight: 400;
-}
-
-/* ── SERVICES MENU ── */
-.services-section {
-  padding: 7rem 2.5rem;
-  border-top: 0.5px solid var(--border);
-}
-
-.services-inner {
-  max-width: 900px;
-  margin: 0 auto;
-  border: 0.5px solid var(--border);
-  background: var(--bg-card);
-}
-
-.menu-header {
+.panel-equation-block {
+  padding: 0.8rem 0.7rem;
+  border: 1px solid var(--border-dark);
+  border-radius: 18px;
+  background: rgba(255,255,255,0.03);
   text-align: center;
-  padding: 3rem 2.5rem 2.5rem;
-  border-bottom: 0.5px solid var(--border);
-  position: relative;
-  background: var(--bg-2);
 }
 
-.menu-header::after {
-  content: '✦';
-  display: block;
-  position: absolute;
-  bottom: -0.7rem;
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--bg-2);
-  padding: 0 0.75rem;
-  color: var(--gold);
-  font-size: 0.65rem;
-}
-
-.menu-subtitle {
-  font-size: 0.68rem;
-  letter-spacing: 0.22em;
+.panel-equation-label {
+  margin: 0;
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--green);
-  margin-bottom: 1rem;
-  font-weight: 500;
+  color: var(--text-on-dark-faint);
 }
 
-.menu-title {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 400;
-  color: var(--text);
-  line-height: 1.1;
-  margin-bottom: 0.5rem;
+.panel-equation-value {
+  margin: 0.35rem 0 0;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.02rem;
+  line-height: 1.08;
+  color: var(--text-on-dark);
 }
 
-.menu-title em { font-style: italic; color: var(--gold); }
-
-.menu-joke {
-  font-size: 0.75rem;
-  color: var(--text-faint);
-  font-style: italic;
-  font-family: 'Playfair Display', serif;
-  margin-bottom: 1rem;
+.panel-equation-symbol {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.6rem;
+  line-height: 1;
+  color: var(--accent);
 }
 
-.menu-note {
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  line-height: 1.7;
-  max-width: 440px;
-  margin: 0 auto;
-}
-
-.menu-item {
+.panel-list {
   display: grid;
-  grid-template-columns: 1fr auto;
   gap: 0;
-  border-bottom: 0.5px solid var(--border);
-  align-items: stretch;
-  transition: background 0.2s;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
-.menu-item:last-of-type { border-bottom: none; }
-.menu-item:hover { background: rgba(122,182,72,0.03); outline: 1.5px solid rgba(122,182,72,0.35); }
-.menu-item:hover .menu-item-decision { color: var(--green); }
-.menu-item:hover .menu-cta { background: rgba(122,182,72,0.7); color: var(--bg); }
-.menu-item.signature { }
-.menu-item.signature:hover { outline: 1.5px solid rgba(122,182,72,0.6); background: rgba(122,182,72,0.05); }
-.menu-item.signature:hover .menu-item-decision { color: var(--green); }
-.menu-item.signature:hover .menu-cta { background: var(--green); color: var(--bg); }
-
-.menu-item-num {
-  font-family: 'Playfair Display', serif;
-  font-size: 0.78rem;
-  color: var(--text-faint);
-  font-style: italic;
-  padding: 1.5rem 0.75rem;
-  border-right: 0.5px solid var(--border);
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  min-width: 2.5rem;
+.panel-list li {
+  padding: 0.62rem 0 0;
+  border-top: 1px solid var(--border-dark);
+  font-size: 0.86rem;
+  line-height: 1.45;
+  color: var(--text-on-dark-muted);
 }
 
-.menu-item-body { padding: 1.5rem 1.5rem; }
-
-.menu-item-name {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.1rem;
-  font-weight: 400;
-  color: var(--text);
-  line-height: 1.2;
-  margin-bottom: 0.3rem;
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  flex-wrap: wrap;
-}
-
-.menu-item-tag {
-  font-size: 0.58rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  background: var(--green-dim);
-  border: 0.5px solid var(--green-border);
-  color: var(--green);
-  padding: 2px 7px;
-  border-radius: 100px;
-  font-weight: 500;
-  font-family: 'DM Sans', sans-serif;
-}
-
-.menu-item-decision {
-  font-size: 0.92rem;
-  color: var(--gold);
-  font-style: italic;
-  font-family: 'Playfair Display', serif;
-  margin-bottom: 0.5rem;
-  font-weight: 400;
-  transition: color 0.2s;
-}
-
-.menu-item-desc {
-  font-size: 0.79rem;
-  color: var(--text-muted);
-  line-height: 1.65;
-  font-weight: 400;
-}
-
-.menu-item-right {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  padding: 1.5rem 1.5rem 1.5rem 0.5rem;
-  border-left: 0.5px solid var(--border);
-  min-width: 90px;
-}
-
-.menu-price-val {
-  font-family: 'Playfair Display', serif;
-  font-size: 1rem;
-  color: var(--gold);
-  font-style: italic;
-  font-weight: 400;
-}
-
-.menu-tier-badge {
-  font-size: 0.58rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  padding: 3px 8px;
-  border-radius: 100px;
-  font-weight: 500;
-  font-family: 'DM Sans', sans-serif;
-  width: fit-content;
-  align-self: flex-end;
-}
-
-.menu-tier-badge.entry {
-  background: rgba(201,184,130,0.1);
-  border: 0.5px solid rgba(201,184,130,0.3);
-  color: var(--gold);
-}
-
-.menu-tier-badge.embedded {
-  background: var(--green-dim);
-  border: 0.5px solid var(--green-border);
-  color: var(--green);
-}
-
-.menu-tier-badge.fractional {
-  background: rgba(74,159,212,0.1);
-  border: 0.5px solid rgba(74,159,212,0.25);
-  color: var(--blue);
-}
-
-.menu-cta {
-  font-size: 0.63rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--bg);
-  background: rgba(240,237,230,0.5);
-  padding: 0.35rem 0.85rem;
-  border-radius: 100px;
-  text-decoration: none;
+.panel-list strong {
+  display: block;
+  margin-bottom: 0.2rem;
+  font-size: 0.68rem;
   font-weight: 600;
-  white-space: nowrap;
-  transition: background 0.2s;
-  font-family: 'DM Sans', sans-serif;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-on-dark-faint);
 }
 
-.menu-cta:hover { background: var(--text); }
-.menu-item.signature:hover .menu-cta { background: var(--green); color: var(--bg); }
-
-.menu-divider {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: 1rem 1.5rem;
-  border-top: 0.5px solid var(--border);
-  color: var(--text-faint);
-  font-size: 0.65rem;
-  letter-spacing: 0.06em;
-  font-family: 'DM Sans', sans-serif;
-  background: var(--bg-2);
-  font-style: italic;
+.service-card,
+.proof-card,
+.case-card,
+.detail-list,
+.contact-card {
+  transition: transform 0.25s ease, border-color 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease;
 }
 
-@media (max-width: 700px) {
-  .menu-item { grid-template-columns: 1fr; }
-  .menu-item-right { display: none; }
+.section-light .service-card,
+.section-light .proof-card,
+.section-light .case-card,
+.section-light .detail-list,
+.section-light .contact-card {
+  background: rgba(255,255,255,0.44);
+  border: 1px solid var(--border-light);
 }
 
-/* ── ADVISORY ── */
-.advisory-wrap {
-  border-top: 0.5px solid var(--border);
+.section-dark .service-card,
+.section-dark .proof-card,
+.section-dark .case-card,
+.section-dark .detail-list,
+.section-dark .contact-card {
+  background: var(--surface-dark);
+  border: 1px solid var(--border-dark);
 }
 
-.advisory {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 7rem 2.5rem;
+.services-frame {
+  border: 1px solid var(--border-light);
+  border-radius: 28px;
+  overflow: hidden;
+  background: rgba(255,255,255,0.38);
+  box-shadow: 0 18px 40px rgba(17,20,21,0.06);
+}
+
+.services-intro {
+  padding: 1.7rem 1.8rem 1.35rem;
+  border-bottom: 1px solid var(--border-light);
+  background: rgba(255,255,255,0.52);
+}
+
+.services-intro-title {
+  margin: 0 0 0.4rem;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 2.2rem;
+  line-height: 1;
+  font-weight: 600;
+}
+
+.services-intro-copy {
+  margin: 0;
+  max-width: 720px;
+  font-size: 0.94rem;
+  line-height: 1.68;
+  color: var(--text-on-light-muted);
+}
+
+.models-wrap {
+  padding: 1.2rem 1.8rem 1.3rem;
+  border-bottom: 1px solid var(--border-light);
+  background: rgba(255,255,255,0.52);
+}
+
+.models-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 5rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 0;
+}
+
+.models-intro {
+  margin: 0 0 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.models-title {
+  margin: 0 0 0.3rem;
+  font-size: 0.76rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--accent-strong);
+}
+
+.models-copy {
+  margin: 0;
+  max-width: 620px;
+  font-size: 0.94rem;
+  line-height: 1.68;
+  color: var(--text-on-light-muted);
+}
+
+.model-card {
+  padding: 0 1.2rem 0 0;
+  border: none;
+  border-right: 1px solid var(--border-light);
+  border-radius: 0;
+  background: transparent;
+}
+
+.model-card:last-child {
+  border-right: none;
+  padding-right: 0;
+}
+
+.model-name {
+  margin: 0 0 0.4rem;
+  font-size: 0.76rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--text-on-light);
+}
+
+.model-desc {
+  margin: 0;
+  font-size: 0.93rem;
+  line-height: 1.6;
+  color: var(--text-on-light-muted);
+}
+
+.section-light .service-card:hover,
+.section-light .proof-card:hover,
+.section-light .contact-card:hover {
+  background: rgba(17,20,21,0.035) !important;
+  border-color: var(--border-light);
+}
+
+.section-dark .service-card:hover,
+.section-dark .proof-card:hover,
+.section-dark .contact-card:hover {
+  background: var(--surface-dark-strong);
+  border-color: rgba(255,255,255,0.18);
+}
+
+.service-title,
+.proof-title,
+.case-title,
+.detail-title {
+  margin: 0 0 0.75rem;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 2rem;
+  line-height: 1.05;
+  font-weight: 500;
+}
+
+.service-groups {
+  display: grid;
+  gap: 0;
+}
+
+.service-group {
+  display: grid;
+  grid-template-columns: 240px minmax(0, 1fr);
+  gap: 1.6rem;
+  padding: 1.5rem 1.8rem;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.service-group:last-child {
+  border-bottom: none;
+}
+
+.service-group-meta {
+  padding-top: 0.2rem;
+}
+
+.service-group-name {
+  margin: 0 0 0.45rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--accent-strong);
+}
+
+.service-group-desc {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--text-on-light-muted);
+}
+
+.service-list {
+  display: grid;
+  gap: 0;
+  border-left: 1px solid var(--border-light);
+  padding-left: 1.5rem;
+}
+
+.service-card {
+  display: grid;
+  grid-template-columns: 54px minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: 1rem;
+  align-items: center;
+  padding: 1rem 0;
+  border: none !important;
+  border-bottom: 1px solid var(--border-light);
+  background: transparent !important;
+}
+
+.service-list .service-card:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.service-card:first-child {
+  padding-top: 0;
+}
+
+.service-number {
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  color: inherit;
+  opacity: 0.38;
+}
+
+.service-body {
+  display: grid;
+  gap: 0.12rem;
+}
+
+.service-question {
+  margin: 0.32rem 0 0;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--accent-strong);
+  font-family: "Inter", sans-serif;
+  font-style: normal;
+}
+
+.service-summary {
+  max-width: 420px;
+}
+
+.service-desc {
+  font-size: 0.92rem;
+}
+
+.proof-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.proof-card {
+  padding: 1.75rem;
+  border-radius: var(--radius-lg);
+  min-height: 280px;
+}
+
+.proof-kicker {
+  margin: 0 0 1.1rem;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+}
+
+.proof-title {
+  font-size: 1.9rem;
+}
+
+.case-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 2rem;
   align-items: start;
 }
 
-.advisory-tag {
-  display: inline-block;
-  background: var(--blue-dim);
-  border: 0.5px solid rgba(74,159,212,0.2);
-  color: var(--blue);
-  font-size: 0.62rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  padding: 3px 10px;
-  border-radius: 100px;
-  margin-bottom: 1.5rem;
-  font-weight: 400;
+.case-intro {
+  padding-right: 1rem;
 }
 
-.advisory h2 {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(1.8rem, 3vw, 2.6rem);
-  font-weight: 400;
-  color: var(--text);
-  line-height: 1.15;
-  margin-bottom: 1.25rem;
+.case-intro .section-note {
+  margin-top: 1rem;
 }
 
-.advisory h2 em { font-style: italic; color: var(--gold); }
-
-.advisory-desc {
-  font-size: 0.88rem;
-  color: var(--text-muted);
-  line-height: 1.8;
-  margin-bottom: 2rem;
-  font-weight: 400;
+.case-card {
+  border-radius: var(--radius-xl);
+  overflow: hidden;
 }
 
-.advisory-list {
-  display: flex;
-  flex-direction: column;
-  border: 0.5px solid var(--border);
-}
-
-.advisory-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
-  padding: 1.1rem 1.25rem;
-  border-bottom: 0.5px solid var(--border);
-  font-size: 0.82rem;
-  color: var(--text-muted);
-  line-height: 1.55;
-  font-weight: 400;
-  transition: background 0.2s;
-}
-
-.advisory-item:last-child { border-bottom: none; }
-.advisory-item:hover { background: var(--bg-card); }
-
-.adv-dot {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: var(--green);
-  margin-top: 6px;
-  flex-shrink: 0;
-}
-
-/* ── WHY ── */
-.why-section {
-  border-top: 0.5px solid var(--border);
-  background: var(--bg-2);
-}
-
-.why-grid {
+.case-row {
   display: grid;
-  grid-template-columns: repeat(3,1fr);
-  gap: 2.5rem;
-  margin-top: 3.5rem;
+  grid-template-columns: 140px minmax(0, 1fr);
+  gap: 1.5rem;
+  padding: 1.6rem 1.75rem;
+  border-bottom: 1px solid;
 }
 
-.why-item { }
-
-.why-num {
-  font-family: 'Playfair Display', serif;
-  font-size: 0.9rem;
-  color: var(--gold);
-  margin-bottom: 1rem;
-  font-style: italic;
-  letter-spacing: 0.05em;
+.section-light .case-row {
+  border-bottom-color: var(--border-light);
 }
 
-.why-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.2rem;
-  font-weight: 400;
-  color: var(--text);
-  margin-bottom: 0.6rem;
+.section-dark .case-row {
+  border-bottom-color: var(--border-dark);
 }
 
-.why-desc {
-  font-size: 0.81rem;
-  color: var(--text-muted);
-  line-height: 1.75;
-  font-weight: 400;
+.case-row:last-child {
+  border-bottom: none;
 }
 
-/* ── SUPPORT TIERS ── */
-.tiers {
-  border-bottom: 0.5px solid var(--border);
-  background: var(--bg);
-  padding: 0 2.5rem 4rem;
-}
-
-.tiers-inner {
-  max-width: 1100px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(3,1fr);
-  gap: 0;
-  background: var(--border);
-  border: 0.5px solid var(--border);
-}
-
-.tier {
-  padding: 2rem 1.75rem;
-  background: var(--bg-card);
-  border-right: 0.5px solid var(--border);
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
-  transition: background 0.2s;
-}
-
-.tier:last-child { border-right: none; }
-.tier:hover { background: var(--bg-card-hover); }
-.tier.highlight { background: var(--bg-2); border-top: 1.5px solid var(--green); }
-.tier.highlight:hover { background: #161616; }
-
-.tier-badge {
-  display: inline-block;
-  font-size: 0.58rem;
+.case-label {
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
   letter-spacing: 0.16em;
-  text-transform: uppercase;
-  padding: 2px 8px;
-  border-radius: 100px;
-  font-weight: 500;
-  width: fit-content;
-  font-family: 'DM Sans', sans-serif;
-  margin-bottom: 0.4rem;
+  color: var(--accent-strong);
 }
 
-.tier-badge.lite {
-  background: rgba(201,184,130,0.1);
-  border: 0.5px solid rgba(201,184,130,0.3);
-  color: var(--gold);
+.about-layout {
+  display: grid;
+  grid-template-columns: minmax(320px, 0.82fr) minmax(0, 1.18fr);
+  gap: 3rem;
+  align-items: start;
 }
 
-.tier-badge.embedded {
-  background: var(--green-dim);
-  border: 0.5px solid var(--green-border);
-  color: var(--green);
-}
-
-.tier-badge.fractional {
-  background: rgba(74,159,212,0.1);
-  border: 0.5px solid rgba(74,159,212,0.25);
-  color: var(--blue);
-}
-
-.tier-name {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.2rem;
-  font-weight: 500;
-  color: var(--text);
-  line-height: 1.25;
-}
-
-.tier-for {
-  font-size: 0.78rem;
-  color: var(--gold);
-  font-style: italic;
-  font-family: 'Playfair Display', serif;
-  margin-bottom: 0.25rem;
-}
-
-.tier-price {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.4rem;
-  font-weight: 400;
-  color: var(--text);
-  line-height: 1;
-  margin: 0.25rem 0;
-}
-
-.tier-price span {
-  font-size: 0.7rem;
-  color: var(--text-faint);
-  font-family: 'DM Sans', sans-serif;
-  font-style: normal;
-  letter-spacing: 0.06em;
-  margin-left: 2px;
-}
-
-.tier-desc {
-  font-size: 0.81rem;
-  color: var(--text-muted);
-  line-height: 1.65;
-  font-weight: 400;
-  flex: 1;
-}
-
-.tier-cta {
-  font-size: 0.65rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--text-faint);
-  text-decoration: none;
-  font-weight: 500;
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  transition: color 0.2s, gap 0.2s;
-  font-family: 'DM Sans', sans-serif;
-  margin-top: 0.75rem;
-  padding-top: 0.75rem;
-  border-top: 0.5px solid var(--border);
-}
-
-.tier:hover .tier-cta { color: var(--text-muted); gap: 9px; }
-.tier.highlight .tier-cta { color: var(--green); }
-
-@media (max-width: 900px) { .tiers-inner { grid-template-columns: 1fr; } }
-
-/* ── CTA ── */
-.cta-section {
-  padding: 10rem 2rem;
-  text-align: center;
+.portrait-card {
   position: relative;
   overflow: hidden;
-  border-top: 0.5px solid var(--border);
+  border-radius: var(--radius-xl);
+  background: #d9d4cb;
+  min-height: 560px;
 }
 
-.cta-glow {
+.portrait-card::before {
+  content: "";
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 700px;
-  height: 400px;
-  background: radial-gradient(ellipse, rgba(201,184,130,0.05) 0%, transparent 65%);
+  inset: 0;
+  background:
+    linear-gradient(90deg, transparent 0 74%, rgba(255,255,255,0.1) 74% 74.3%, transparent 74.3%),
+    linear-gradient(0deg, transparent 0 68%, rgba(255,255,255,0.08) 68% 68.3%, transparent 68.3%),
+    radial-gradient(circle, rgba(255,255,255,0.18) 0 1px, transparent 1px);
+  background-size: auto, auto, 26px 26px;
+  opacity: 0.22;
   pointer-events: none;
 }
 
-.cta-section h2 {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(2.5rem, 6vw, 5rem);
-  font-weight: 400;
-  color: var(--text);
-  line-height: 1.05;
-  margin-bottom: 1.25rem;
+.portrait-card::after {
+  content: "Founder";
+  position: absolute;
+  left: 1.25rem;
+  bottom: 1.25rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  background: rgba(17,20,21,0.76);
+  color: var(--page-light);
 }
 
-.cta-section h2 em { font-style: italic; color: var(--gold); }
-
-.cta-section p {
-  font-size: 0.88rem;
-  color: var(--text-muted);
-  margin-bottom: 3rem;
-  font-weight: 400;
-  line-height: 1.7;
+.portrait-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
 }
 
-/* ── ABOUT ── */
-.about-section {
-  border-top: 0.5px solid var(--border);
-  background: var(--bg);
+.about-name {
+  font-size: clamp(2.7rem, 4.2vw, 4.4rem);
+  color: inherit;
+  margin-bottom: 0.6rem;
 }
 
-.about-inner {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 7rem 2.5rem;
+.about-role {
+  margin: 0 0 1.5rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent-strong);
+}
+
+.about-copy {
+  max-width: 720px;
+  margin-bottom: 2rem;
+}
+
+.detail-list {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  position: relative;
+}
+
+.detail-list::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(122,182,72,0.06), transparent 28%);
+  pointer-events: none;
+}
+
+.detail-row {
   display: grid;
-  grid-template-columns: 1fr 1.4fr;
-  gap: 6rem;
+  grid-template-columns: 180px minmax(0, 1fr);
+  gap: 1.2rem;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid;
+}
+
+.section-light .detail-row {
+  border-bottom-color: var(--border-light);
+}
+
+.section-dark .detail-row {
+  border-bottom-color: var(--border-dark);
+}
+
+.detail-row:last-child {
+  border-bottom: none;
+}
+
+.detail-label {
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: inherit;
+  opacity: 0.48;
+}
+
+.detail-value {
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+
+.contact-wrap {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 0.72fr);
+  gap: 2rem;
+  align-items: stretch;
+}
+
+.faq-shell {
+  display: grid;
+  grid-template-columns: minmax(240px, 0.34fr) minmax(0, 1fr);
+  gap: 2.5rem;
   align-items: start;
 }
 
-.about-photo-wrap {
-  position: relative;
+.faq-intro {
+  display: grid;
+  gap: 0.9rem;
 }
 
-.about-photo {
-  width: 100%;
-  aspect-ratio: 3/4;
-  background: var(--bg-card);
-  border: 0.5px solid var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 0.75rem;
-  position: relative;
-  overflow: hidden;
-}
-
-.about-photo::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(
-    45deg,
-    transparent,
-    transparent 20px,
-    rgba(255,255,255,0.015) 20px,
-    rgba(255,255,255,0.015) 21px
-  );
-}
-
-.about-photo-icon {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  border: 0.5px solid var(--border-hover);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.about-photo-icon svg {
-  width: 22px;
-  height: 22px;
-  stroke: var(--text-faint);
-  fill: none;
-  stroke-width: 1.5;
-}
-
-.about-photo-label {
-  font-size: 0.65rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--text-faint);
-  font-family: 'DM Sans', sans-serif;
-}
-
-.about-photo-corner {
-  position: absolute;
-  bottom: 1rem;
-  right: 1rem;
-  background: var(--green-dim);
-  border: 0.5px solid var(--green-border);
-  color: var(--green);
-  font-size: 0.6rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  padding: 4px 10px;
-  border-radius: 100px;
-  font-family: 'DM Sans', sans-serif;
+.faq-title {
+  margin: 0;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(2.6rem, 4vw, 4rem);
+  line-height: 0.98;
+  letter-spacing: -0.03em;
   font-weight: 500;
 }
 
-.about-right { padding-top: 0.5rem; }
-
-.about-name {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(1.8rem, 3vw, 2.6rem);
-  font-weight: 400;
-  color: var(--text);
-  line-height: 1.1;
-  margin-bottom: 0.3rem;
+.faq-copy {
+  margin: 0;
+  max-width: 28ch;
+  font-size: 0.96rem;
+  line-height: 1.75;
+  color: var(--text-on-light-muted);
 }
 
-.about-title {
-  font-size: 0.8rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--green);
-  font-weight: 500;
-  margin-bottom: 2rem;
-}
-
-.about-bio {
-  font-size: 0.95rem;
-  color: var(--text-muted);
-  line-height: 1.85;
-  margin-bottom: 2rem;
-  font-weight: 400;
-  border-left: 1.5px solid var(--border-hover);
-  padding-left: 1.25rem;
-}
-
-.about-bio em {
-  font-style: italic;
-  color: var(--text);
-  font-family: 'Playfair Display', serif;
-}
-
-.about-details {
-  display: flex;
-  flex-direction: column;
-  border: 0.5px solid var(--border);
-  margin-bottom: 2rem;
-}
-
-.about-detail {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.9rem 1.1rem;
-  border-bottom: 0.5px solid var(--border);
-  font-size: 0.82rem;
+.faq-stack {
+  display: grid;
   gap: 1rem;
 }
 
-.about-detail:last-child { border-bottom: none; }
+.faq-item {
+  border: 1px solid var(--border-light);
+  background: rgba(255,255,255,0.66);
+}
 
-.about-detail-label {
-  color: var(--text-faint);
-  font-size: 0.68rem;
-  letter-spacing: 0.1em;
+.faq-item.active {
+  background: rgba(122,182,72,0.12);
+}
+
+.faq-question {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.2rem 1.3rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.faq-icon {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(17,20,21,0.08);
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.faq-item.active .faq-icon {
+  background: rgba(122,182,72,0.2);
+}
+
+.faq-answer {
+  padding: 0 1.3rem 1.25rem;
+  max-width: 720px;
+  font-size: 0.96rem;
+  line-height: 1.75;
+  color: var(--text-on-light-muted);
+}
+
+.faq-item:not(.active) .faq-answer {
+  display: none;
+}
+
+.faq-cta {
+  margin-top: 1.2rem;
+  padding: 1.4rem;
+  border-radius: 24px;
+  border: 1px solid var(--border-light);
+  background: rgba(255,255,255,0.78);
+}
+
+.faq-cta-title {
+  margin: 0 0 0.45rem;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 2rem;
+  line-height: 1.05;
+  font-weight: 500;
+}
+
+.faq-cta-copy {
+  margin: 0 0 1rem;
+  font-size: 0.96rem;
+  line-height: 1.7;
+  color: var(--text-on-light-muted);
+}
+
+.contact-title {
+  font-size: clamp(2.8rem, 5vw, 4.8rem);
+  margin-bottom: 1rem;
+}
+
+.contact-copy {
+  max-width: 700px;
+}
+
+.contact-card {
+  padding: 1.75rem;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-soft);
+}
+
+.contact-card-title {
+  margin: 0 0 1rem;
+  font-size: 0.8rem;
   text-transform: uppercase;
-  white-space: nowrap;
+  letter-spacing: 0.16em;
+  color: var(--text-on-dark-faint);
 }
 
-.about-detail-val {
-  color: var(--text-muted);
-  text-align: right;
+.section-light .contact-card-title {
+  color: var(--text-on-light-faint);
 }
 
-@media (max-width: 900px) {
-  .about-inner { grid-template-columns: 1fr; gap: 3rem; }
-  .about-photo { aspect-ratio: 4/3; }
+.contact-list {
+  list-style: none;
+  margin: 0 0 1.5rem;
+  padding: 0;
+  display: grid;
+  gap: 0.95rem;
 }
 
-/* ── FOOTER ── */
-footer {
-  border-top: 0.5px solid var(--border);
-  padding: 2rem 2.5rem;
-  background: var(--bg-2);
+.contact-list li {
+  padding-top: 0.95rem;
+  border-top: 1px solid var(--border-dark);
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: var(--text-on-dark-muted);
+}
+
+.section-light .contact-list li {
+  border-top-color: var(--border-light);
+  color: var(--text-on-light-muted);
+}
+
+.contact-meta {
+  margin: 1rem 0 0;
+  font-size: 0.84rem;
+  line-height: 1.7;
+}
+
+.footer {
+  padding: 1.4rem 0 2rem;
+  background: var(--page-dark);
+  border-top: 1px solid var(--border-dark);
 }
 
 .footer-inner {
-  max-width: 1100px;
-  margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 1.25rem;
   flex-wrap: wrap;
-  gap: 1rem;
 }
 
 .footer-logo {
-  font-family: 'Playfair Display', serif;
-  font-size: 1rem;
-  font-weight: 400;
-  color: var(--text-muted);
-  letter-spacing: 0.06em;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-weight: 600;
 }
 
-.footer-logo span { font-style: italic; color: var(--green); }
+.footer-logo span {
+  color: var(--accent);
+}
 
 .footer-copy {
-  font-size: 0.7rem;
-  color: var(--text-faint);
-  font-weight: 400;
-  letter-spacing: 0.06em;
+  font-size: 0.8rem;
 }
 
 .footer-links {
   display: flex;
-  gap: 2rem;
   list-style: none;
+  gap: 1.4rem;
+  margin: 0;
+  padding: 0;
 }
 
 .footer-links a {
-  font-size: 0.7rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--text-faint);
   text-decoration: none;
-  font-weight: 400;
-  transition: color 0.2s;
+  font-size: 0.76rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
-.footer-links a:hover { color: var(--text-muted); }
-
-/* ── RESPONSIVE ── */
-@media (max-width: 900px) {
-  .how-grid { grid-template-columns: 1fr; }
-  .services-grid { grid-template-columns: 1fr; }
-  .advisory { grid-template-columns: 1fr; gap: 3rem; }
-  .why-grid { grid-template-columns: 1fr; gap: 2rem; }
-  
-  nav { padding: 0 1.25rem; }
-  .nav-links { gap: 1rem; }
-  .services-header { flex-direction: column; }
-  .services-note { text-align: left; }
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  animation: fade-up 0.85s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
 
-@media (max-width: 600px) {
-  
-  .hero h1 { font-size: 3rem; }
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-42px);
+  animation: fade-left 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.24s; }
+.delay-3 { animation-delay: 0.36s; }
+
+@keyframes fade-up {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-left {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 1080px) {
+  .hero-grid,
+  .section-header,
+  .case-layout,
+  .about-layout,
+  .contact-wrap {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-grid {
+    min-height: auto;
+    padding-top: 1rem;
+  }
+
+  .hero-copy,
+  .case-intro {
+    max-width: none;
+    padding-right: 0;
+  }
+
+  .hero-layout,
+  .proof-layout,
+  .faq-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-visual {
+    min-height: 360px;
+    overflow: hidden;
+  }
+
+  .hero-art {
+    width: min(100%, 760px);
+    margin-right: 0;
+  }
+
+  .proof-copy-panel {
+    border-right: none;
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .proof-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .case-studies-intro {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 820px) {
+  .models-grid,
+  .proof-grid,
+  .case-study-grid,
+  .process-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .service-carousel {
+    overflow: visible;
+  }
+
+  .service-carousel::before,
+  .service-carousel::after {
+    display: none;
+  }
+
+  .service-carousel-controls {
+    justify-content: center;
+  }
+
+  .service-carousel-track {
+    display: flex;
+  }
+
+  .service-simple-card {
+    flex: 0 0 min(88vw, 560px);
+  }
+
+  .panel-equation {
+    grid-template-columns: 1fr;
+    gap: 0.45rem;
+  }
+
+  .panel-equation-symbol {
+    text-align: center;
+  }
+
+  .model-card {
+    padding: 0 0 1rem;
+    border-right: none;
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .model-card:last-child {
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+
+  .service-group {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 1.2rem 1.25rem;
+  }
+
+  .service-list {
+    padding-left: 0;
+    border-left: none;
+  }
+
+  .service-card {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    padding: 1rem 0;
+    align-items: start;
+  }
+
+  .process-card {
+    min-height: auto;
+    padding: 6.4rem 1.5rem 1.5rem;
+    border-right: none;
+    border-bottom: 1px solid var(--border-dark);
+  }
+
+  .process-card:last-child {
+    border-bottom: none;
+  }
+
+  .process-number {
+    left: 1.5rem;
+  }
+
+  .nav-inner {
+    flex-direction: column;
+    justify-content: center;
+    padding: 1rem 0;
+    min-height: auto;
+  }
+
+  .nav-links {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.9rem 1.2rem;
+  }
+
+  .support-intro-top {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .hero-orb-1 {
+    width: 210px;
+    height: 210px;
+  }
+
+  .hero-orb-2 {
+    width: 160px;
+    height: 160px;
+  }
+
+  .hero-orb-3 {
+    width: 190px;
+    height: 190px;
+  }
+
+  .hero-title {
+    font-size: clamp(2.7rem, 12vw, 4.2rem);
+  }
+
+  .case-row,
+  .detail-row {
+    grid-template-columns: 1fr;
+    gap: 0.65rem;
+  }
+
+  .portrait-card {
+    min-height: 420px;
+  }
+}
+
+@media (max-width: 560px) {
+  .container {
+    width: min(calc(100% - 1.5rem), var(--content-width));
+  }
+
+  .hero {
+    padding-top: 0.85rem;
+  }
+
+  .hero-panel,
+  .proof-card,
+  .contact-card {
+    padding: 1.25rem;
+  }
+
+  .hero-visual {
+    min-height: 300px;
+  }
+
+  .hero-orb-1 {
+    width: 180px;
+    height: 180px;
+    left: 0;
+  }
+
+  .hero-orb-2 {
+    width: 130px;
+    height: 130px;
+    left: 52%;
+  }
+
+  .hero-orb-3 {
+    width: 160px;
+    height: 160px;
+    left: 26%;
+  }
+
+  .services-intro {
+    padding: 1.35rem 1.25rem 1.1rem;
+  }
+
+  .models-wrap {
+    padding: 1.1rem 1.25rem 1.25rem;
+  }
+
+
+  .section {
+    padding: 4rem 0;
+  }
+
+  .btn-row {
+    flex-direction: column;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+  }
 }
 </style>
 </head>
 <body>
-
-<!-- NAV -->
-<nav>
-  <a href="#" class="nav-logo">Caliber <span>Studios</span></a>
-  <ul class="nav-links">
-    <li><a href="#services">Services</a></li>
-    <li><a href="#advisory">Advisory</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="#contact" class="nav-cta">Book a call</a></li>
-  </ul>
+<nav class="site-nav">
+  <div class="container nav-inner">
+    <a href="#top" class="nav-logo">Caliber <span>Studios</span></a>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#support">Support</a></li>
+      <li><a href="#case-studies">Case Studies</a></li>
+      <li><a href="#founder">Founder</a></li>
+      <li><a href="#contact" class="nav-cta">Contact</a></li>
+    </ul>
+  </div>
 </nav>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-glow"></div>
-  <p class="hero-tag">UX Research · Product Strategy · Decision Intelligence</p>
-  <h1>Stop guessing.<br>Start building what <em>actually works.</em></h1>
-  <p class="hero-sub">Caliber Studios is a UX research practice. We help product teams, companies, and investors understand their users — so they can make smarter decisions before spending time and money building the wrong thing.</p>
-  <div class="hero-btns">
-    <a href="#services" class="btn-primary">Explore the menu</a>
-    <a href="#contact" class="btn-ghost">Book a consultation</a>
-  </div>
-  </div>
-</section>
-
-<!-- MARQUEE STRIP -->
-<div class="strip">
-  <div class="strip-track">
-    <span class="strip-item"><span class="strip-dot"></span>Real users. Real answers.</span>
-    <span class="strip-item"><span class="strip-dot"></span>Know before you build.</span>
-    <span class="strip-item"><span class="strip-dot"></span>Good research saves money.</span>
-    <span class="strip-item"><span class="strip-dot"></span>Find the diamonds. Cut the rest.</span>
-    <span class="strip-item"><span class="strip-dot"></span>You work with me, not a team of juniors.</span>
-    <span class="strip-item"><span class="strip-dot"></span>No 60-slide decks.</span>
-    <span class="strip-item"><span class="strip-dot"></span>Real users. Real answers.</span>
-    <span class="strip-item"><span class="strip-dot"></span>Know before you build.</span>
-    <span class="strip-item"><span class="strip-dot"></span>Good research saves money.</span>
-    <span class="strip-item"><span class="strip-dot"></span>Find the diamonds. Cut the rest.</span>
-    <span class="strip-item"><span class="strip-dot"></span>You work with me, not a team of juniors.</span>
-    <span class="strip-item"><span class="strip-dot"></span>No 60-slide decks.</span>
-  </div>
-</div>
-
-<!-- HOW IT WORKS -->
-<section class="section">
-  <p class="eyebrow">How it works</p>
-  <h2 class="section-title">Simple process.<br><em>Clear answer at the end.</em></h2>
-  <div class="how-grid">
-    <div class="step">
-      <p class="step-num">01</p>
-      <p class="step-title">We figure out the right question</p>
-      <p class="step-desc">Most teams already know they need answers — they just don't always know which question matters most. We start there, together.</p>
-    </div>
-    <div class="step">
-      <p class="step-num">02</p>
-      <p class="step-title">We talk to your users</p>
-      <p class="step-desc">Real conversations with real people. We dig into what they actually think, feel, and do — not what they say they do.</p>
-    </div>
-    <div class="step">
-      <p class="step-num">03</p>
-      <p class="step-title">You get a clear answer</p>
-      <p class="step-desc">Not a mountain of data. Not a 60-slide deck. Just what you need to know, and what we think you should do next.</p>
-    </div>
-  </div>
-</section>
-
-<!-- SERVICES -->
-<section class="services-section" id="services">
-  <div class="services-inner">
-
-    <div class="menu-header">
-      <p class="menu-subtitle">Services</p>
-      <h2 class="menu-title">The <em>Menu</em></h2>
-      <p class="menu-joke">Yes, we're serving. No, you can't send it back once you've tasted clarity.</p>
-      <p class="menu-note">Pick the question your team is stuck on. Each service is built to answer one thing well.</p>
-    </div>
-
-    <div class="menu-item">
-      <div class="menu-item-body">
-        <p class="menu-item-name">First Impressions Audit <span class="menu-tier-badge entry">Partner Lite</span></p>
-        <p class="menu-item-decision">"Do people immediately understand what this is?"</p>
-        <p class="menu-item-desc">We show your product to real people and watch what happens. Do they get it right away? Are they confused? You'll know within days — before you waste more time on something that isn't landing.</p>
-      </div>
-      <div class="menu-item-right"><a href="#contact" class="menu-cta">Inquire</a></div>
-    </div>
-
-    <div class="menu-item signature">
-      <div class="menu-item-body">
-        <p class="menu-item-name">Validation Sprint <span class="menu-tier-badge embedded">Embedded</span></p>
-        <p class="menu-item-decision">"Is this worth building?"</p>
-        <p class="menu-item-desc">Before you build, make sure someone actually wants it. We talk to the people you're building for and come back with a straight answer: build it, or save your money.</p>
-      </div>
-      <div class="menu-item-right"><a href="#contact" class="menu-cta">Inquire</a></div>
-    </div>
-
-    <div class="menu-item">
-      <div class="menu-item-body">
-        <p class="menu-item-name">AI Trust & UX Audit <span class="menu-tier-badge embedded">Embedded</span></p>
-        <p class="menu-item-decision">"Will users trust this AI feature?"</p>
-        <p class="menu-item-desc">AI features fail when users don't trust them — even if they work perfectly. We find out what's making people hesitate, ignore, or misuse your AI before you ship it.</p>
-      </div>
-      <div class="menu-item-right"><a href="#contact" class="menu-cta">Inquire</a></div>
-    </div>
-
-    <div class="menu-item">
-      <div class="menu-item-body">
-        <p class="menu-item-name">Friction Finder <span class="menu-tier-badge entry">Partner Lite</span></p>
-        <p class="menu-item-decision">"Where are users getting stuck?"</p>
-        <p class="menu-item-desc">Something's not working, but you're not sure what. We watch real people use your product and find exactly where they get confused, frustrated, or give up — so you can fix the right things.</p>
-      </div>
-      <div class="menu-item-right"><a href="#contact" class="menu-cta">Inquire</a></div>
-    </div>
-
-    <div class="menu-item">
-      <div class="menu-item-body">
-        <p class="menu-item-name">Mental Model Mapping <span class="menu-tier-badge fractional">Fractional</span></p>
-        <p class="menu-item-decision">"How do users actually think about this?"</p>
-        <p class="menu-item-desc">Your users have a mental picture of how things work — and it might be nothing like yours. We map how they actually think so you can build something that clicks, instead of something that needs a tutorial.</p>
-      </div>
-      <div class="menu-item-right"><a href="#contact" class="menu-cta">Inquire</a></div>
-    </div>
-
-    <div class="menu-item">
-      <div class="menu-item-body">
-        <p class="menu-item-name">Pre-Launch Confidence Check <span class="menu-tier-badge entry">Partner Lite</span></p>
-        <p class="menu-item-decision">"Are we ready to launch?"</p>
-        <p class="menu-item-desc">You're almost ready to launch — but almost isn't good enough. We put your product in front of real users one more time and catch the things that would hurt you after go-live, when fixing them costs a lot more.</p>
-      </div>
-      <div class="menu-item-right"><a href="#contact" class="menu-cta">Inquire</a></div>
-    </div>
-
-    <div class="menu-divider">
-      <span>* Timelines are estimates. Actual scope aligned during initial call.</span>
-      <a href="#contact" style="color:var(--green);text-decoration:none;white-space:nowrap;">Let's talk →</a>
-    </div>
-
-  </div>
-</section>
-
-<!-- CALIBER ADVISORY -->
-<section class="advisory-wrap" id="advisory">
-  <div style="max-width: 1100px; margin: 0 auto; padding: 7rem 2.5rem 2rem;">
-    <p class="eyebrow">Caliber Advisory</p>
-    <h2 class="section-title">Need someone in your corner<br>every month, not just <em>once?</em></h2>
-    <p style="font-size:0.9rem; color:var(--text-muted); max-width:580px; line-height:1.9; margin-bottom:0;">Some teams need a one-time answer. Others need a research partner who's always in the room — helping them figure out what to test, what it means, and what to do about it. That's Caliber Advisory. Think of it as having a senior researcher on your team, without the full-time hire.</p>
-  </div>
-
-  <div style="border-top: 0.5px solid var(--border); padding: 2.5rem 2.5rem 1.5rem; margin-top: 2rem;">
-    <div style="max-width: 1100px; margin: 0 auto;">
-      <p class="eyebrow">Choose your model</p>
-    </div>
-  </div>
-
-  <div class="tiers">
-    <div class="tiers-inner">
-
-      <div class="tier">
-        <span class="tier-badge lite">Partner Lite</span>
-        <p class="tier-name">Research Partner<br>Lite</p>
-        <p class="tier-for">For teams needing occasional guidance</p>
-        <p class="tier-price">$3K – $5K<span>/mo</span></p>
-        <p class="tier-desc">One research project a month, quick feedback over Slack, and a standing relationship. Good if you have occasional questions but aren't quite ready to go all in.</p>
-        <a href="#contact" class="tier-cta">Inquire →</a>
-      </div>
-
-      <div class="tier highlight">
-        <span class="tier-badge embedded">Embedded</span>
-        <p class="tier-name">Embedded<br>Partner</p>
-        <p class="tier-for">For teams with active product development</p>
-        <p class="tier-price">$6K – $9K<span>/mo</span></p>
-        <p class="tier-desc">Two or three projects a month, a weekly check-in, and ongoing input on what's worth researching. Built for teams that are actively building and need research keeping pace with them.</p>
-        <a href="#contact" class="tier-cta">Inquire →</a>
-      </div>
-
-      <div class="tier">
-        <span class="tier-badge fractional">Fractional</span>
-        <p class="tier-name">Fractional Head<br>of Research</p>
-        <p class="tier-for">For orgs needing senior research leadership</p>
-        <p class="tier-price">$10K – $15K+<span>/mo</span></p>
-        <p class="tier-desc">I own your research function — the plan, the work, and the results. Best for organizations that need senior research leadership but aren't ready to bring someone on full time.</p>
-        <a href="#contact" class="tier-cta">Inquire →</a>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- WHY CALIBER -->
-<section class="why-section" id="why">
-  <div class="section">
-    <p class="eyebrow">Why Caliber</p>
-    <h2 class="section-title">Good research is rare.<br><em>Here's what makes this different.</em></h2>
-    <div class="why-grid">
-      <div class="why-item">
-        <p class="why-num">I.</p>
-        <p class="why-title">You get a real answer, not just data</p>
-        <p class="why-desc">A lot of research produces reports that sit in a folder. Caliber produces answers you can act on. Every project ends with a clear point of view — not just findings.</p>
-      </div>
-      <div class="why-item">
-        <p class="why-num">II.</p>
-        <p class="why-title">We find what matters, not everything</p>
-        <p class="why-desc">More data doesn't mean better decisions. We dig deep and filter hard so you walk away with the two or three things that actually change how you think — not a hundred things to sort through.</p>
-      </div>
-      <div class="why-item">
-        <p class="why-num">III.</p>
-        <p class="why-title">You work with me directly</p>
-        <p class="why-desc">No account managers. No junior researchers doing the work while a senior takes the credit. When you hire Caliber, you get me — on every call, in every interview, in every deliverable.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ABOUT THE FOUNDER -->
-<section class="about-section" id="about">
-  <div class="about-inner">
-    <div class="about-photo-wrap">
-      <div class="about-photo">
-        <img src="founder.jpg" style="width:100%;height:100%;object-fit:cover;object-position:top;display:block;" alt="Founder">
-        <span class="about-photo-corner">Founder</span>
-      </div>
-    </div>
-
-    <div class="about-right">
-      <p class="eyebrow">About the founder</p>
-      <h2 class="about-name"Christina Pineda</h2>
-      <p class="about-title">Founder & Lead Researcher, Caliber Studios</p>
-
-      <p class="about-bio">
-        I started Caliber Studios because I kept seeing the same problem: teams making expensive product decisions without the right insight to back them up. <em>Not for lack of effort — but for lack of clarity.</em> My work is about changing that. I bring senior-level UX research to the moments that matter most — before the big bet, before the launch, before the wrong thing gets built.
-      </p>
-
-      <div class="about-details">
-        <div class="about-detail">
-          <span class="about-detail-label">Based in</span>
-          <span class="about-detail-val">New York, NY</span>
+<main id="top">
+  <section class="section section-dark hero">
+    <div class="container hero-grid">
+      <div class="hero-layout">
+        <div class="hero-copy reveal">
+          <p class="eyebrow">For Founders, Product Leads, and Design Teams</p>
+          <h1 class="hero-title">Know what users <em>actually need</em> before you build.</h1>
+          <p class="hero-sub">Caliber Studios helps teams make clearer product decisions through focused UX research.</p>
+          <div class="hero-pill-row">
+            <span class="hero-pill">Validation</span>
+            <span class="hero-pill">Usability</span>
+            <span class="hero-pill">Strategy</span>
+          </div>
+          <div class="btn-row">
+            <a href="#services" class="btn-primary">View Services</a>
+            <a href="#contact" class="btn-secondary">Start a Conversation</a>
+          </div>
         </div>
-        <div class="about-detail">
-          <span class="about-detail-label">Background</span>
-          <span class="about-detail-val">UX Research · Product Strategy</span>
+        <div class="hero-visual reveal delay-2" aria-hidden="true">
+          <div class="hero-art">
+            <img src="design inspo/Hero-Image-jenga.png" alt="">
+          </div>
         </div>
-        <div class="about-detail">
-          <span class="about-detail-label">Clients</span>
-          <span class="about-detail-val">Startups · Enterprise · Product teams</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-dark" id="how-it-works">
+    <div class="container">
+      <div class="process-header reveal">
+        <p class="eyebrow">How It Works</p>
+      </div>
+
+      <div class="process-grid">
+        <article class="process-card reveal delay-1">
+          <p class="process-number">01</p>
+          <p class="process-kicker">Services</p>
+          <h3 class="process-title">Choose the right service.</h3>
+          <p class="process-copy">Start by identifying the product question that matters most, then match it to the research service built to answer it clearly.</p>
+        </article>
+
+        <article class="process-card reveal delay-2">
+          <p class="process-number">02</p>
+          <p class="process-kicker">Support Model</p>
+          <h3 class="process-title">Set the right support level.</h3>
+          <p class="process-copy">Use flexible models so the work fits the scope, speed, and collaboration level the team actually needs.</p>
+        </article>
+
+        <article class="process-card reveal delay-3">
+          <p class="process-number">03</p>
+          <p class="process-kicker">What You Get</p>
+          <h3 class="process-title">Get higher-quality insights.</h3>
+          <p class="process-copy">The result is a practical read on what users need, where risk lives, and what the team should do next.</p>
+        </article>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="marquee-band" aria-label="Previous companies">
+    <div class="container">
+      <div class="marquee-track">
+        <span class="marquee-item"><span class="marquee-dot"></span>Deloitte</span>
+        <span class="marquee-item"><span class="marquee-dot"></span>Chick-fil-A</span>
+        <span class="marquee-item"><span class="marquee-dot"></span>6sense</span>
+        <span class="marquee-item"><span class="marquee-dot"></span>Motorola Solutions</span>
+        <span class="marquee-item"><span class="marquee-dot"></span>Deloitte</span>
+        <span class="marquee-item"><span class="marquee-dot"></span>Chick-fil-A</span>
+        <span class="marquee-item"><span class="marquee-dot"></span>6sense</span>
+        <span class="marquee-item"><span class="marquee-dot"></span>Motorola Solutions</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-light" id="services">
+    <div class="container">
+      <div class="services-showcase">
+        <div class="services-showcase-intro reveal">
+          <p class="eyebrow">Services</p>
+          <h2 class="section-title">Focused research built for clearer <em>decisions.</em></h2>
+          <p class="services-showcase-copy">Choose the service that best fits the question in front of you. Not sure where to start? Start with the answer you need. Don’t see an exact fit? Let’s talk.</p>
         </div>
-        <div class="about-detail">
-          <span class="about-detail-label">Availability</span>
-          <span class="about-detail-val" style="color: var(--green);">Currently taking new clients</span>
+
+        <div class="service-carousel reveal">
+          <div class="service-carousel-track" data-services-track>
+            <article class="service-simple-card">
+              <h3 class="service-simple-name">First Impressions Audit</h3>
+              <p class="service-simple-question">"Do people immediately understand what this is?"</p>
+              <p class="service-simple-desc">We show your product to real people and watch what happens. Do they get it right away? Are they confused? You'll know within days, before you waste more time on something that isn't landing.</p>
+              <div class="service-simple-meta">
+                <div class="service-simple-meta-block">
+                  <p class="service-simple-meta-label">Suggested Support</p>
+                  <p class="service-simple-meta-value">Partner Lite</p>
+                </div>
+                <div class="service-simple-meta-block">
+                  <p class="service-simple-meta-label">Approx. Time</p>
+                  <p class="service-simple-meta-value">2-3 weeks</p>
+                </div>
+              </div>
+            </article>
+
+            <article class="service-simple-card">
+              <h3 class="service-simple-name">Validation Sprint</h3>
+              <p class="service-simple-question">"Is this worth building?"</p>
+              <p class="service-simple-desc">Before you build, make sure someone actually wants it. We talk to the people you're building for and come back with a straight answer: build it, or save your money.</p>
+              <div class="service-simple-meta">
+                <div class="service-simple-meta-block">
+                  <p class="service-simple-meta-label">Suggested Support</p>
+                  <p class="service-simple-meta-value">Embedded</p>
+                </div>
+                <div class="service-simple-meta-block">
+                  <p class="service-simple-meta-label">Approx. Time</p>
+                  <p class="service-simple-meta-value">4-6 weeks</p>
+                </div>
+              </div>
+            </article>
+
+            <article class="service-simple-card">
+              <h3 class="service-simple-name">AI Trust &amp; UX Audit</h3>
+              <p class="service-simple-question">"Will users trust this AI feature?"</p>
+              <p class="service-simple-desc">AI features fail when users don't trust them, even if they work perfectly. We find out what's making people hesitate, ignore, or misuse your AI before you ship it.</p>
+              <div class="service-simple-meta">
+                <div class="service-simple-meta-block">
+                  <p class="service-simple-meta-label">Suggested Support</p>
+                  <p class="service-simple-meta-value">Embedded</p>
+                </div>
+                <div class="service-simple-meta-block">
+                  <p class="service-simple-meta-label">Approx. Time</p>
+                  <p class="service-simple-meta-value">3-5 weeks</p>
+                </div>
+              </div>
+            </article>
+
+            <article class="service-simple-card">
+              <h3 class="service-simple-name">Friction Finder</h3>
+              <p class="service-simple-question">"Where are users getting stuck?"</p>
+              <p class="service-simple-desc">Something's not working, but you're not sure what. We watch real people use your product and find exactly where they get confused, frustrated, or give up so you can fix the right things.</p>
+              <div class="service-simple-meta">
+                <div class="service-simple-meta-block">
+                  <p class="service-simple-meta-label">Suggested Support</p>
+                  <p class="service-simple-meta-value">Partner Lite</p>
+                </div>
+                <div class="service-simple-meta-block">
+                  <p class="service-simple-meta-label">Approx. Time</p>
+                  <p class="service-simple-meta-value">2-3 weeks</p>
+                </div>
+              </div>
+            </article>
+
+            <article class="service-simple-card">
+              <h3 class="service-simple-name">Mental Model Mapping</h3>
+              <p class="service-simple-question">"How do users actually think about this?"</p>
+              <p class="service-simple-desc">Your users have a mental picture of how things work, and it might be nothing like yours. We map how they actually think so you can build something that clicks instead of something that needs a tutorial.</p>
+              <div class="service-simple-meta">
+                <div class="service-simple-meta-block">
+                  <p class="service-simple-meta-label">Suggested Support</p>
+                  <p class="service-simple-meta-value">Fractional</p>
+                </div>
+                <div class="service-simple-meta-block">
+                  <p class="service-simple-meta-label">Approx. Time</p>
+                  <p class="service-simple-meta-value">4-6 weeks</p>
+                </div>
+              </div>
+            </article>
+
+            <article class="service-simple-card">
+              <h3 class="service-simple-name">Pre-Launch Confidence Check</h3>
+              <p class="service-simple-question">"Are we ready to launch?"</p>
+              <p class="service-simple-desc">You're almost ready to launch, but almost isn't good enough. We put your product in front of real users one more time and catch the things that would hurt you after go-live, when fixing them costs a lot more.</p>
+              <div class="service-simple-meta">
+                <div class="service-simple-meta-block">
+                  <p class="service-simple-meta-label">Suggested Support</p>
+                  <p class="service-simple-meta-value">Partner Lite</p>
+                </div>
+                <div class="service-simple-meta-block">
+                  <p class="service-simple-meta-label">Approx. Time</p>
+                  <p class="service-simple-meta-value">2 weeks</p>
+                </div>
+              </div>
+            </article>
+          </div>
+          <div class="service-carousel-controls" aria-label="Services carousel controls">
+            <button class="service-carousel-button" type="button" data-carousel-prev aria-label="Previous services">←</button>
+            <button class="service-carousel-button" type="button" data-carousel-next aria-label="Next services">→</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-dark" id="support">
+    <div class="container">
+      <div class="support-intro reveal">
+        <div class="support-intro-top">
+          <p class="eyebrow">Support Models</p>
+          <h2 class="support-intro-title">Ways to work with Caliber.</h2>
+          <p class="support-intro-note">Choose the level of support that best fits the scope, pace, and closeness of collaboration needed.</p>
         </div>
       </div>
 
-      <a href="#contact" class="btn-primary">Work with me</a>
+      <div class="support-grid">
+        <article class="support-card reveal delay-1">
+          <p class="support-kicker">Partner Lite</p>
+          <h3 class="support-title">Occasional guidance for contained product questions.</h3>
+          <p class="support-copy">Best for teams that need senior research support on a smaller scope without committing to a deeply embedded model.</p>
+          <div class="support-meta">
+            <div class="support-meta-block">
+              <p class="support-meta-label">Typical Range</p>
+              <p class="support-meta-value">$3K-$5K / month</p>
+            </div>
+            <div class="support-meta-block">
+              <p class="support-meta-label">Typical Cadence</p>
+              <p class="support-meta-value">One focused project at a time</p>
+            </div>
+          </div>
+          <ul class="support-list">
+            <li>Smaller-scope audits, evaluations, and launch checks</li>
+            <li>Quick feedback loops and a standing research partner</li>
+            <li>Good for teams with occasional questions that still matter</li>
+          </ul>
+        </article>
+
+        <article class="support-card reveal delay-2">
+          <p class="support-kicker">Embedded</p>
+          <h3 class="support-title">Closer collaboration for active product development.</h3>
+          <p class="support-copy">Best when the team is building quickly and needs research to keep pace with live roadmap and design decisions.</p>
+          <div class="support-meta">
+            <div class="support-meta-block">
+              <p class="support-meta-label">Typical Range</p>
+              <p class="support-meta-value">$6K-$9K / month</p>
+            </div>
+            <div class="support-meta-block">
+              <p class="support-meta-label">Typical Cadence</p>
+              <p class="support-meta-value">Two to three projects a month</p>
+            </div>
+          </div>
+          <ul class="support-list">
+            <li>Weekly check-ins and ongoing product input</li>
+            <li>Validation, iterative research, and roadmap guidance</li>
+            <li>Built for teams actively shipping and learning as they go</li>
+          </ul>
+        </article>
+
+        <article class="support-card reveal delay-3">
+          <p class="support-kicker">Fractional</p>
+          <h3 class="support-title">Senior research leadership without a full-time hire.</h3>
+          <p class="support-copy">Best when research needs to shape broader direction, priorities, and team decision-making over time.</p>
+          <div class="support-meta">
+            <div class="support-meta-block">
+              <p class="support-meta-label">Typical Range</p>
+              <p class="support-meta-value">$10K-$15K+ / month</p>
+            </div>
+            <div class="support-meta-block">
+              <p class="support-meta-label">Typical Cadence</p>
+              <p class="support-meta-value">Ongoing leadership across the function</p>
+            </div>
+          </div>
+          <ul class="support-list">
+            <li>Owns the plan, the work, and the research direction</li>
+            <li>Supports bigger framing, prioritization, and strategy questions</li>
+            <li>Best for orgs needing senior research leadership before building a full function</li>
+          </ul>
+        </article>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- FINAL CTA -->
-<section class="cta-section" id="contact">
-  <div class="cta-glow"></div>
-  <h2>Not sure where<br><em>to start?</em></h2>
-  <p>That's completely normal. Tell me what you're working on and we'll figure out the right next step together. No pitch, no pressure.</p>
-  <a href="mailto:cepineda7@gmail.com" class="btn-primary">Let's talk</a>
-</section>
+  <section class="section section-light" id="case-studies">
+    <div class="container">
+      <div class="proof-shell reveal">
+        <div class="proof-layout">
+          <div class="proof-copy-panel">
+            <p class="eyebrow">Case Studies</p>
+            <h2 class="section-title">Examples of how research work turns into clearer <em>decisions.</em></h2>
+            <p class="section-copy">This section will eventually hold a small set of real examples showing the question, the approach, and what changed as a result.</p>
+          </div>
 
-<!-- FOOTER -->
-<footer>
-  <div class="footer-inner">
-    <span class="footer-logo">Caliber <span>Studios</span></span>
-    <p class="footer-copy">© 2026 Caliber Studios. All rights reserved.</p>
+          <div class="proof-card-stack">
+            <a class="case-study-card reveal delay-1" href="https://www.christinapineda.me/softwaredeployment-1" target="_blank" rel="noreferrer" aria-label="Mental Model Mapping with MSI case study">
+              <p class="case-study-label">Mental Model Mapping with MSI</p>
+              <p class="case-study-desc">Clarifying user mental models to shape a stronger product or information architecture direction.</p>
+              <p class="case-study-meta">View Case Study</p>
+            </a>
+
+            <article class="case-study-card reveal delay-2" aria-label="Validation Example case study coming soon">
+              <p class="case-study-label">Validation Example</p>
+              <p class="case-study-desc">Testing whether a concept was worth pursuing before the team committed roadmap time and budget.</p>
+              <p class="case-study-meta">Coming Soon</p>
+            </article>
+
+            <article class="case-study-card reveal delay-3" aria-label="Usability Example case study coming soon">
+              <p class="case-study-label">Usability Example</p>
+              <p class="case-study-desc">Identifying friction in an existing experience and improving what users understood or completed.</p>
+              <p class="case-study-meta">Coming Soon</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-dark" id="founder">
+    <div class="container about-layout">
+      <div class="portrait-card reveal">
+        <img src="founder.jpg" alt="Portrait of Christina Pineda">
+      </div>
+
+      <div class="reveal delay-2">
+        <p class="eyebrow">Founder Details</p>
+        <h2 class="about-name">Christina Pineda</h2>
+        <p class="about-role">Founder and Lead Researcher, Caliber Studios</p>
+        <p class="about-copy">I started Caliber Studios to give product founders, product leads, and design teams access to senior UX research support in moments where clearer thinking matters most. The goal is not to add more process or fail fast. It is to bring better product judgment backed by quality research, rooted in answering the right questions.</p>
+        <p class="about-copy">My background spans discovery research, evaluative research, concept testing, information architecture, and product strategy support. I work closely with teams to turn what users need into direction that is actually usable.</p>
+
+        <div class="detail-list">
+          <div class="detail-row">
+            <div class="detail-label">Works With</div>
+            <div class="detail-value">Founders, product managers, design teams, engineers, and contract companies.</div>
+          </div>
+          <div class="detail-row">
+            <div class="detail-label">Strengths</div>
+            <div class="detail-value">Discovery and evaluative research, concept testing, information architecture, product strategy support, and AI experience clarity.</div>
+          </div>
+          <div class="detail-row">
+            <div class="detail-label">Approach</div>
+            <div class="detail-value">Structured, calm, and highly collaborative. I aim to bring clarity without adding process for its own sake.</div>
+          </div>
+          <div class="detail-row">
+            <div class="detail-label">Best Fit</div>
+            <div class="detail-value">Teams that want a thoughtful research partner who can clarify what to do next.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-light" id="contact">
+    <div class="container faq-shell">
+      <div class="faq-intro reveal">
+        <p class="eyebrow">Contact + FAQ</p>
+        <h2 class="faq-title">Questions before reaching out?</h2>
+        <p class="faq-copy">A few quick answers about how Caliber works, what to expect, and how to start the conversation.</p>
+      </div>
+
+      <div class="faq-stack">
+        <div class="faq-item active reveal">
+          <div class="faq-question">
+            <span>How do I know which service fits?</span>
+            <span class="faq-icon">−</span>
+          </div>
+          <div class="faq-answer">Start with the product question in front of the team. If you are not sure which engagement fits, send a short note and I can recommend the best starting point.</div>
+        </div>
+
+        <div class="faq-item reveal delay-1">
+          <div class="faq-question">
+            <span>Do I need to know the support model first?</span>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">No. Most teams start with the product question or service they think they need, and we shape the support model from there. If you already know you want a lighter, more embedded, or more strategic partnership, that helps, but it is not required.</div>
+        </div>
+
+        <div class="faq-item reveal delay-2">
+          <div class="faq-question">
+            <span>What happens after I reach out?</span>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">I will usually reply with a few follow-up questions about what your team is working on, what feels uncertain, and what kind of timeline you are aiming for. From there, I can recommend a service, a support model, or a more tailored starting point if the work does not fit neatly into one option.</div>
+        </div>
+
+        <div class="faq-item reveal delay-3">
+          <div class="faq-question">
+            <span>How quickly do you respond?</span>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">Typically within one to two business days. If the request is time-sensitive, mention that in your note and I will do my best to respond sooner.</div>
+        </div>
+
+        <div class="faq-cta reveal delay-3">
+          <p class="faq-cta-title">Start a conversation.</p>
+          <p class="faq-cta-copy">Send a short note about what your team is working on, what feels uncertain, and what kind of support might help most.</p>
+          <div class="btn-row">
+            <a href="mailto:cepineda7@gmail.com?subject=Research%20Inquiry" class="btn-primary">Email Christina</a>
+            <a href="#services" class="btn-secondary">Review Services</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <div class="footer-logo">Caliber <span>Studios</span></div>
+    <div class="footer-copy">UX research and product strategy support for startups and product teams.</div>
     <ul class="footer-links">
       <li><a href="#services">Services</a></li>
-      <li><a href="#advisory">Advisory</a></li>
-      <li><a href="mailto:cepineda7@gmail.com">Contact</a></li>
+      <li><a href="#support">Support</a></li>
+      <li><a href="#case-studies">Case Studies</a></li>
+      <li><a href="#founder">Founder</a></li>
+      <li><a href="#contact">Contact</a></li>
     </ul>
   </div>
 </footer>
+<script>
+  (() => {
+    const track = document.querySelector("[data-services-track]");
+    const prev = document.querySelector("[data-carousel-prev]");
+    const next = document.querySelector("[data-carousel-next]");
 
+    if (!track || !prev || !next) return;
+
+    const getStep = () => {
+      const firstCard = track.querySelector(".service-simple-card");
+      if (!firstCard) return 0;
+      const gap = parseFloat(getComputedStyle(track).gap || "16");
+      return firstCard.getBoundingClientRect().width + gap;
+    };
+
+    const move = (direction) => {
+      const step = getStep();
+      if (!step) return;
+      const maxScroll = track.scrollWidth - track.clientWidth;
+      let nextLeft = track.scrollLeft + step * direction;
+
+      if (nextLeft < 0) nextLeft = maxScroll;
+      if (nextLeft > maxScroll) nextLeft = 0;
+
+      track.scrollTo({ left: nextLeft, behavior: "smooth" });
+    };
+
+    prev.addEventListener("click", () => move(-1));
+    next.addEventListener("click", () => move(1));
+  })();
+
+  (() => {
+    const items = Array.from(document.querySelectorAll(".faq-item"));
+    if (!items.length) return;
+
+    items.forEach((item) => {
+      const question = item.querySelector(".faq-question");
+      const icon = item.querySelector(".faq-icon");
+      if (!question || !icon) return;
+
+      question.addEventListener("click", () => {
+        const isActive = item.classList.contains("active");
+
+        items.forEach((faqItem) => {
+          faqItem.classList.remove("active");
+          const faqIcon = faqItem.querySelector(".faq-icon");
+          if (faqIcon) faqIcon.textContent = "+";
+        });
+
+        if (!isActive) {
+          item.classList.add("active");
+          icon.textContent = "−";
+        }
+      });
+    });
+  })();
+</script>
 </body>
 </html>
