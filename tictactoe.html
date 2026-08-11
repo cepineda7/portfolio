@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Tic Tac Toe by Christina Pineda.">
+  <title>HTML Experiment - Christina Pineda</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <a class="brand" href="index.html">Christina Pineda</a>
+    <nav class="site-nav" aria-label="Primary navigation">
+      <a href="index.html">About</a>
+      <a href="work.html">Work</a>
+      <a href="fun.html" aria-current="page">Fun</a>
+      <a href="mailto:cepineda7@gmail.com">Contact</a>
+    </nav>
+  </header>
+
+  <main id="main" class="page-shell game-page">
+    <div id="tictactoe-container" class="game-container">
+      <div id="tictactoe-app" class="game-app"></div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <nav class="footer-links" aria-label="External links">
+      <a href="mailto:cepineda7@gmail.com">Contact</a>
+      <a href="https://read.cv/christinapineda" target="_blank" rel="noreferrer">Read.cv</a>
+      <a href="https://www.linkedin.com/in/christina-pineda-ms-hci-40b07bb6/" target="_blank" rel="noreferrer">LinkedIn</a>
+      <a href="https://substack.com/@xtinapineda/reads" target="_blank" rel="noreferrer">Reads</a>
+    </nav>
+  </footer>
+
+  <script>
+  (function() {
+    const app = document.getElementById('tictactoe-app');
+    let board = Array(9).fill(null);
+    let isXNext = true;
+    let gameMode = null;
+    let winner = null;
+    let winLine = null;
+    let scores = { X: 0, O: 0, draws: 0 };
+
+    function calculateWinner(squares) {
+      const lines = [
+        [0, 1, 2], [3, 4, 5], [6, 7, 8],
+        [0, 3, 6], [1, 4, 7], [2, 5, 8],
+        [0, 4, 8], [2, 4, 6]
+      ];
+
+      for (const line of lines) {
+        const [a, b, c] = line;
+        if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+          return { winner: squares[a], line };
+        }
+      }
+
+      if (squares.every(Boolean)) {
+        return { winner: 'Draw', line: null };
+      }
+
+      return null;
+    }
+
+    function findBestMove(squares, player) {
+      const lines = [
+        [0, 1, 2], [3, 4, 5], [6, 7, 8],
+        [0, 3, 6], [1, 4, 7], [2, 5, 8],
+        [0, 4, 8], [2, 4, 6]
+      ];
+
+      for (const line of lines) {
+        const [a, b, c] = line;
+        const values = [squares[a], squares[b], squares[c]];
+        const playerCount = values.filter((value) => value === player).length;
+        const emptyCount = values.filter((value) => value === null).length;
+        if (playerCount === 2 && emptyCount === 1) {
+          return line[values.indexOf(null)];
+        }
+      }
+      return null;
+    }
+
+    function checkWinner() {
+      const result = calculateWinner(board);
+      if (result) {
+        winner = result.winner;
+        winLine = result.line;
+        if (winner === 'Draw') {
+          scores.draws += 1;
+        } else {
+          scores[winner] += 1;
+        }
+      }
+    }
+
+    function makeAIMove() {
+      const emptySquares = board.map((value, index) => value === null ? index : null).filter((value) => value !== null);
+      const aiMove = findBestMove(board, 'O') ??
+        findBestMove(board, 'X') ??
+        emptySquares[Math.floor(Math.random() * emptySquares.length)];
+      if (aiMove !== undefined) {
+        board[aiMove] = 'O';
+        isXNext = true;
+        checkWinner();
+        render();
+      }
+    }
+
+    function handleClick(index) {
+      if (board[index] || winner || (gameMode === 'ai' && !isXNext)) {
+        return;
+      }
+      board[index] = isXNext ? 'X' : 'O';
+      isXNext = !isXNext;
+      checkWinner();
+      render();
+      if (gameMode === 'ai' && !isXNext && !winner) {
+        setTimeout(makeAIMove, 500);
+      }
+    }
+
+    function resetGame() {
+      board = Array(9).fill(null);
+      isXNext = true;
+      winner = null;
+      winLine = null;
+      render();
+    }
+
+    function startNewSession() {
+      board = Array(9).fill(null);
+      isXNext = true;
+      winner = null;
+      winLine = null;
+      gameMode = null;
+      scores = { X: 0, O: 0, draws: 0 };
+      render();
+    }
+
+    function startGame(mode) {
+      gameMode = mode;
+      render();
+    }
+
+    function render() {
+      if (!gameMode) {
+        app.innerHTML = `
+          <div class="game-menu">
+            <div class="game-menu-title">Tic Tac Toe</div>
+            <div class="game-menu-buttons">
+              <button class="game-btn game-btn-primary" onclick="window.tttStartGame('ai')">Play vs AI</button>
+              <button class="game-btn game-btn-secondary" onclick="window.tttStartGame('pvp')">Two Players</button>
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      const statusText = winner
+        ? (winner === 'Draw' ? "It's a draw" : `${winner} wins`)
+        : (gameMode === 'ai' && !isXNext ? 'AI thinking...' : `${isXNext ? 'X' : 'O'}'s turn`);
+
+      app.innerHTML = `
+        <div class="game-title">Tic Tac Toe</div>
+        <div class="game-scores">
+          <span>X: ${scores.X}</span>
+          <span>O: ${scores.O}</span>
+          <span>Draws: ${scores.draws}</span>
+        </div>
+        <div class="game-status">${statusText}</div>
+        <div class="ttt-board">
+          ${board.map((cell, i) => {
+            const isWin = winLine?.includes(i);
+            const isDim = winner && !isWin;
+            const classes = [
+              'ttt-cell',
+              cell === 'X' ? 'ttt-cell-x' : '',
+              cell === 'O' ? 'ttt-cell-o' : '',
+              cell ? 'ttt-cell-filled' : '',
+              isWin ? 'ttt-cell-win' : '',
+              isDim ? 'ttt-cell-dim' : '',
+              (winner || (gameMode === 'ai' && !isXNext)) ? 'ttt-cell-disabled' : ''
+            ].filter(Boolean).join(' ');
+            return `<div class="${classes}" onclick="window.tttHandleClick(${i})">${cell === 'X' ? '×' : cell === 'O' ? '○' : ''}</div>`;
+          }).join('')}
+        </div>
+        <div class="game-buttons">
+          <button class="game-btn game-btn-secondary" onclick="window.tttResetGame()">New Game</button>
+          <button class="game-btn game-btn-primary" onclick="window.tttStartNewSession()">Change Mode</button>
+        </div>
+      `;
+    }
+
+    window.tttHandleClick = handleClick;
+    window.tttResetGame = resetGame;
+    window.tttStartNewSession = startNewSession;
+    window.tttStartGame = startGame;
+    render();
+  })();
+  </script>
+</body>
+</html>

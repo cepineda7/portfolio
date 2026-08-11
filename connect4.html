@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Connect Four by Christina Pineda.">
+  <title>Connect4 - Christina Pineda</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <a class="brand" href="index.html">Christina Pineda</a>
+    <nav class="site-nav" aria-label="Primary navigation">
+      <a href="index.html">About</a>
+      <a href="work.html">Work</a>
+      <a href="fun.html" aria-current="page">Fun</a>
+      <a href="mailto:cepineda7@gmail.com">Contact</a>
+    </nav>
+  </header>
+
+  <main id="main" class="page-shell game-page">
+    <div id="connect4-container" class="game-container game-container-wide">
+      <div id="connect4-app" class="game-app game-app-wide"></div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <nav class="footer-links" aria-label="External links">
+      <a href="mailto:cepineda7@gmail.com">Contact</a>
+      <a href="https://read.cv/christinapineda" target="_blank" rel="noreferrer">Read.cv</a>
+      <a href="https://www.linkedin.com/in/christina-pineda-ms-hci-40b07bb6/" target="_blank" rel="noreferrer">LinkedIn</a>
+      <a href="https://substack.com/@xtinapineda/reads" target="_blank" rel="noreferrer">Reads</a>
+    </nav>
+  </footer>
+
+  <script>
+  (function() {
+    const app = document.getElementById('connect4-app');
+    const ROWS = 6;
+    const COLS = 7;
+
+    let board = Array(COLS).fill(null).map(() => Array(ROWS).fill(null));
+    let isPlayer1Next = true;
+    let gameMode = null;
+    let winner = null;
+    let winCells = [];
+    let scores = { player1: 0, player2: 0, draws: 0 };
+    let lastMove = null;
+
+    function checkWinner() {
+      for (let r = 0; r < ROWS; r += 1) {
+        for (let c = 0; c <= COLS - 4; c += 1) {
+          const cells = [[c, r], [c + 1, r], [c + 2, r], [c + 3, r]];
+          const values = cells.map(([col, row]) => board[col][row]);
+          if (values[0] && values.every((value) => value === values[0])) {
+            return { winner: values[0], cells };
+          }
+        }
+      }
+
+      for (let c = 0; c < COLS; c += 1) {
+        for (let r = 0; r <= ROWS - 4; r += 1) {
+          const cells = [[c, r], [c, r + 1], [c, r + 2], [c, r + 3]];
+          const values = cells.map(([col, row]) => board[col][row]);
+          if (values[0] && values.every((value) => value === values[0])) {
+            return { winner: values[0], cells };
+          }
+        }
+      }
+
+      for (let r = 0; r <= ROWS - 4; r += 1) {
+        for (let c = 0; c <= COLS - 4; c += 1) {
+          const cells = [[c, r], [c + 1, r + 1], [c + 2, r + 2], [c + 3, r + 3]];
+          const values = cells.map(([col, row]) => board[col][row]);
+          if (values[0] && values.every((value) => value === values[0])) {
+            return { winner: values[0], cells };
+          }
+        }
+      }
+
+      for (let r = 3; r < ROWS; r += 1) {
+        for (let c = 0; c <= COLS - 4; c += 1) {
+          const cells = [[c, r], [c + 1, r - 1], [c + 2, r - 2], [c + 3, r - 3]];
+          const values = cells.map(([col, row]) => board[col][row]);
+          if (values[0] && values.every((value) => value === values[0])) {
+            return { winner: values[0], cells };
+          }
+        }
+      }
+
+      if (board.every((col) => col.every((cell) => cell !== null))) {
+        return { winner: 'draw', cells: [] };
+      }
+
+      return null;
+    }
+
+    function getAvailableRow(col) {
+      for (let r = 0; r < ROWS; r += 1) {
+        if (board[col][r] === null) {
+          return r;
+        }
+      }
+      return -1;
+    }
+
+    function evaluateBoard(player) {
+      const opponent = player === 'player1' ? 'player2' : 'player1';
+      let score = 0;
+
+      function checkLine(cells) {
+        const values = cells.map(([c, r]) => board[c][r]);
+        const playerCount = values.filter((value) => value === player).length;
+        const opponentCount = values.filter((value) => value === opponent).length;
+        const emptyCount = values.filter((value) => value === null).length;
+        if (playerCount === 4) return 1000;
+        if (opponentCount === 4) return -1000;
+        if (playerCount === 3 && emptyCount === 1) return 50;
+        if (opponentCount === 3 && emptyCount === 1) return -100;
+        if (playerCount === 2 && emptyCount === 2) return 10;
+        if (opponentCount === 2 && emptyCount === 2) return -10;
+        return 0;
+      }
+
+      for (let r = 0; r < ROWS; r += 1) {
+        for (let c = 0; c <= COLS - 4; c += 1) {
+          score += checkLine([[c, r], [c + 1, r], [c + 2, r], [c + 3, r]]);
+        }
+      }
+      for (let c = 0; c < COLS; c += 1) {
+        for (let r = 0; r <= ROWS - 4; r += 1) {
+          score += checkLine([[c, r], [c, r + 1], [c, r + 2], [c, r + 3]]);
+        }
+      }
+      for (let r = 0; r <= ROWS - 4; r += 1) {
+        for (let c = 0; c <= COLS - 4; c += 1) {
+          score += checkLine([[c, r], [c + 1, r + 1], [c + 2, r + 2], [c + 3, r + 3]]);
+        }
+      }
+      for (let r = 3; r < ROWS; r += 1) {
+        for (let c = 0; c <= COLS - 4; c += 1) {
+          score += checkLine([[c, r], [c + 1, r - 1], [c + 2, r - 2], [c + 3, r - 3]]);
+        }
+      }
+
+      return score;
+    }
+
+    function findBestMove() {
+      const validCols = [];
+      for (let c = 0; c < COLS; c += 1) {
+        if (getAvailableRow(c) !== -1) validCols.push(c);
+      }
+      let bestScore = -Infinity;
+      let bestCol = validCols[Math.floor(Math.random() * validCols.length)];
+      for (const col of validCols) {
+        const row = getAvailableRow(col);
+        board[col][row] = 'player2';
+        const result = checkWinner();
+        const score = result?.winner === 'player2' ? 10000 : evaluateBoard('player2');
+        board[col][row] = null;
+        if (score > bestScore) {
+          bestScore = score;
+          bestCol = col;
+        }
+      }
+      return bestCol;
+    }
+
+    function createConfetti() {
+      const colors = ['#ec4899', '#fbbf24', '#60a5fa', '#fb923c'];
+      for (let i = 0; i < 80; i += 1) {
+        setTimeout(() => {
+          const confetti = document.createElement('div');
+          confetti.className = 'confetti';
+          confetti.style.left = `${Math.random() * 100}vw`;
+          confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+          confetti.style.animationDuration = `${Math.random() * 3 + 2}s`;
+          document.body.appendChild(confetti);
+          setTimeout(() => confetti.remove(), 5000);
+        }, i * 30);
+      }
+    }
+
+    function createConfettiForWinner(winningPlayer) {
+      if (gameMode === 'ai' && winningPlayer !== 'player1') return;
+      if (gameMode === 'pvp' || winningPlayer === 'player1') createConfetti();
+    }
+
+    function makeAIMove() {
+      const col = findBestMove();
+      const row = getAvailableRow(col);
+      if (row !== -1) {
+        board[col][row] = 'player2';
+        lastMove = [col, row];
+        isPlayer1Next = true;
+        const result = checkWinner();
+        if (result) {
+          winner = result.winner;
+          winCells = result.cells;
+          if (winner === 'draw') scores.draws += 1;
+          else {
+            scores[winner] += 1;
+            setTimeout(() => createConfettiForWinner(winner), 300);
+          }
+        }
+        render();
+      }
+    }
+
+    function dropPiece(col) {
+      if (winner || (gameMode === 'ai' && !isPlayer1Next)) return;
+      const row = getAvailableRow(col);
+      if (row === -1) return;
+      board[col][row] = isPlayer1Next ? 'player1' : 'player2';
+      lastMove = [col, row];
+      isPlayer1Next = !isPlayer1Next;
+      const result = checkWinner();
+      if (result) {
+        winner = result.winner;
+        winCells = result.cells;
+        if (winner === 'draw') scores.draws += 1;
+        else {
+          scores[winner] += 1;
+          setTimeout(() => createConfettiForWinner(winner), 300);
+        }
+      }
+      render();
+      if (gameMode === 'ai' && !isPlayer1Next && !winner) {
+        setTimeout(makeAIMove, 500);
+      }
+    }
+
+    function resetGame() {
+      board = Array(COLS).fill(null).map(() => Array(ROWS).fill(null));
+      isPlayer1Next = true;
+      winner = null;
+      winCells = [];
+      lastMove = null;
+      render();
+    }
+
+    function startNewSession() {
+      board = Array(COLS).fill(null).map(() => Array(ROWS).fill(null));
+      isPlayer1Next = true;
+      winner = null;
+      winCells = [];
+      lastMove = null;
+      gameMode = null;
+      scores = { player1: 0, player2: 0, draws: 0 };
+      render();
+    }
+
+    function startGame(mode) {
+      gameMode = mode;
+      render();
+    }
+
+    function isWinCell(col, row) {
+      return winCells.some(([c, r]) => c === col && r === row);
+    }
+
+    function isLastMove(col, row) {
+      return lastMove && lastMove[0] === col && lastMove[1] === row;
+    }
+
+    function winnerText(player) {
+      if (player === 'player1') return 'Player 1 wins';
+      return gameMode === 'ai' ? 'AI wins' : 'Player 2 wins';
+    }
+
+    function render() {
+      if (!gameMode) {
+        app.innerHTML = `
+          <div class="game-menu">
+            <div class="game-menu-title">Connect Four</div>
+            <div class="game-menu-buttons">
+              <button class="game-btn game-btn-primary" onclick="window.c4StartGame('ai')">Play vs AI</button>
+              <button class="game-btn game-btn-secondary" onclick="window.c4StartGame('pvp')">Two Players</button>
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      const currentPlayer = isPlayer1Next ? 'Player 1' : (gameMode === 'ai' ? 'AI' : 'Player 2');
+      const statusText = winner
+        ? (winner === 'draw' ? "It's a draw" : winnerText(winner))
+        : (gameMode === 'ai' && !isPlayer1Next ? 'AI thinking...' : `${currentPlayer}'s turn`);
+
+      app.innerHTML = `
+        <div class="game-title">Connect Four</div>
+        <div class="game-scores">
+          <span>Player 1: ${scores.player1}</span>
+          <span>${gameMode === 'ai' ? 'AI' : 'Player 2'}: ${scores.player2}</span>
+          <span>Draws: ${scores.draws}</span>
+        </div>
+        <div class="game-status">${statusText}</div>
+        <div class="c4-board-wrapper">
+          <div class="c4-board">
+            ${Array(COLS).fill(0).map((_, col) => `
+              <div class="c4-column">
+                <button class="c4-column-btn ${(winner || getAvailableRow(col) === -1 || (gameMode === 'ai' && !isPlayer1Next)) ? 'c4-disabled' : ''}" onclick="window.c4DropPiece(${col})">▼</button>
+                ${Array(ROWS).fill(0).map((_, row) => {
+                  const piece = board[col][row];
+                  const isWin = isWinCell(col, row);
+                  const isLast = isLastMove(col, row);
+                  let pieceClass = '';
+                  if (piece === 'player1') pieceClass = 'c4-piece-player1';
+                  else if (piece === 'player2') pieceClass = gameMode === 'ai' ? 'c4-piece-player2-ai' : 'c4-piece-player2-pvp';
+                  return `<div class="c4-cell">${piece ? `<div class="c4-piece ${pieceClass} ${isWin ? 'c4-piece-win' : ''} ${isLast ? 'c4-piece-animate' : ''}"></div>` : ''}</div>`;
+                }).join('')}
+              </div>
+            `).join('')}
+          </div>
+        </div>
+        <div class="game-buttons">
+          <button class="game-btn game-btn-secondary" onclick="window.c4ResetGame()">New Game</button>
+          <button class="game-btn game-btn-primary" onclick="window.c4StartNewSession()">Change Mode</button>
+        </div>
+      `;
+    }
+
+    window.c4DropPiece = dropPiece;
+    window.c4ResetGame = resetGame;
+    window.c4StartNewSession = startNewSession;
+    window.c4StartGame = startGame;
+    render();
+  })();
+  </script>
+</body>
+</html>
